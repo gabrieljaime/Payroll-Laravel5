@@ -1,11 +1,11 @@
 <?php namespace App\Models;
 
+use App\Logic\User\CaptureIp;
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use App\Logic\User\CaptureIp;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
@@ -34,13 +34,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     // REGISTRATION VALIDATION RULES
     public static $rules = [
-        'name'                          => 'required',
-        'first_name'                    => 'required',
-        'last_name'                     => 'required',
-        'email'                         => 'required|email|unique:users',
-        'password'                      => 'required|min:6|max:20',
-        'password_confirmation'         => 'required|same:password',
-        'g-recaptcha-response'          => 'required'
+        'name'                  => 'required',
+        'first_name'            => 'required',
+        'last_name'             => 'required',
+        'email'                 => 'required|email|unique:users',
+        'password'              => 'required|min:6|max:20',
+        'password_confirmation' => 'required|same:password',
+        'g-recaptcha-response'  => 'required'
     ];
 
     // REGISTRATION ERROR MESSAGES
@@ -57,25 +57,28 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     ];
 
     // ACCOUNT EMAIL ACTIVATION
-    public function accountIsActive($code) {
+    public function accountIsActive($code)
+    {
 
         // CHECK IF ACTIVATION CODE MATCHES THE ONE WE SENT
         $user = User::where('activation_code', '=', $code)->first();
 
         // GET IP ADDRESS
-        $userIpAddress                          = new CaptureIp;
-        $user->signup_confirmation_ip_address   = $userIpAddress->getClientIp();
+        $userIpAddress = new CaptureIp;
+        $user->signup_confirmation_ip_address = $userIpAddress->getClientIp();
 
         // SET THE USER TO ACTIVE
-        $user->active                           = 1;
+        $user->active = 1;
 
         // CLEAR THE ACTIVATION CODE
-        $user->activation_code                  = '';
+        $user->activation_code = '';
 
         // SAVE THE USER
-        if($user->save()) {
+        if ($user->save())
+        {
             \Auth::login($user);
         }
+
         return true;
     }
 
@@ -87,10 +90,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function hasRole($name)
     {
-        foreach($this->roles as $role)
+        foreach ($this->roles as $role)
         {
-            if($role->name == $name) return true;
+            if ($role->name == $name) return true;
         }
+
         return false;
     }
 
@@ -117,10 +121,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function hasProfile($name)
     {
-        foreach($this->profiles as $profile)
+        foreach ($this->profiles as $profile)
         {
-            if($profile->name == $name) return true;
+            if ($profile->name == $name) return true;
         }
+
         return false;
     }
 

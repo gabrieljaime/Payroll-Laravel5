@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateSkillsTagsTable extends Migration
-{
+class CreateSkillsTagsTable extends Migration {
+
     /**
      * Run the migrations.
      *
@@ -12,7 +12,8 @@ class CreateSkillsTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('skills_tags', function (Blueprint $table) {
+        Schema::create('skills_tags', function (Blueprint $table)
+        {
             $table->increments('id');
             $table->string('tag')->unique();
             $table->boolean('reverse_direction');

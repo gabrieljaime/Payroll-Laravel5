@@ -18,8 +18,12 @@
 
 
 {!! HTML::style(asset('/assets/css/admin/datatables/dataTables.bootstrap.css'), array('type' => 'text/css', 'rel' => 'stylesheet')) !!}
-{!! HTML::style(asset('/assets/js/select2/select2.css'), array('type' => 'text/css', 'rel' => 'stylesheet')) !!}
+
 {!! HTML::style(asset('/assets/js/select2/select2-bootstrap.css'), array('type' => 'text/css', 'rel' => 'stylesheet')) !!}
+
+{!! HTML::style(asset('/assets/js/select2/select2.css'), array('type' => 'text/css', 'rel' => 'stylesheet')) !!}
+
+{!! HTML::style(asset('/assets/plugins/iCheck/all.css'), array('type' => 'text/css', 'rel' => 'stylesheet')) !!}
 
 {{-- Load Template Specific CSS --}}
 @yield('style-sheets')

@@ -1,7 +1,7 @@
 <!-- Obra Social Field -->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('obra_social', 'Obra Social:') !!}
-    {!! Form::select('obra_social', ['obrasocial'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('obra_social', $ObraSocial, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Matricula Field -->

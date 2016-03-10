@@ -18,170 +18,267 @@
 */
 
 // HOMEPAGE ROUTE
-Route::get('/', function () {
+Route::get('/', function ()
+{
     return view('welcome');
 });
 
+route::get('/createemployees', function ()
+{
+    $pdf = PDF2::loadView('reports.createemployees');
+
+    return $pdf->stream();
+});
 
 
-Route::get('/twitter', function()
+Route::get('/twitter', function ()
 {
 
-	return Twitter::getUserTimeline(['screen_name' => 'jeremyekenedy', 'count' => 20, 'format' => 'json']);
+    return Twitter::getUserTimeline(['screen_name' => 'jeremyekenedy', 'count' => 20, 'format' => 'json']);
 
     //return Twitter::getHomeTimeline(['count' => 20, 'format' => 'json']);
 
-	//return Twitter::getMentionsTimeline(['count' => 20, 'format' => 'json']);
+    //return Twitter::getMentionsTimeline(['count' => 20, 'format' => 'json']);
 
-	//return Twitter::postTweet(['status' => 'Laravel is beautiful', 'format' => 'json']);
+    //return Twitter::postTweet(['status' => 'Laravel is beautiful', 'format' => 'json']);
 
 });
-
 
 
 // ALL AUTHENTICATION ROUTES - HANDLED IN THE CONTROLLERS
 Route::controllers([
-	'auth' 		=> 'Auth\AuthController',
-	'password' 	=> 'Auth\PasswordController',
+    'auth'     => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
 ]);
 // REGISTRATION EMAIL CONFIRMATION ROUTES
 Route::get('/resendEmail', [
-    'as' 		=> 'user',
-	'uses'		=> 'Auth\AuthController@resendEmail'
+    'as'   => 'user',
+    'uses' => 'Auth\AuthController@resendEmail'
 ]);
 Route::get('/activate/{code}', [
-    'as' 		=> 'user',
-	'uses'		=> 'Auth\AuthController@activateAccount'
+    'as'   => 'user',
+    'uses' => 'Auth\AuthController@activateAccount'
 ]);
 
 // CUSTOM REDIRECTS
-Route::get('restart', function () {
+Route::get('restart', function ()
+{
     \Auth::logout();
-    return redirect('auth/register')->with('anError',  \Lang::get('auth.loggedOutLocked'));
+
+    return redirect('auth/register')->with('anError', \Lang::get('auth.loggedOutLocked'));
 });
-Route::get('another', function () {
+Route::get('another', function ()
+{
     \Auth::logout();
-    return redirect('auth/login')->with('anError',  \Lang::get('auth.tryAnother'));
+
+    return redirect('auth/login')->with('anError', \Lang::get('auth.tryAnother'));
 });
 
 // LARAVEL SOCIALITE AUTHENTICATION ROUTES
 Route::get('/social/redirect/{provider}', [
-	'as' 		=> 'social.redirect',
-	'uses' 		=> 'Auth\AuthController@getSocialRedirect'
+    'as'   => 'social.redirect',
+    'uses' => 'Auth\AuthController@getSocialRedirect'
 ]);
-Route::get('/social/handle/{provider}',[
-	'as' 		=> 'social.handle',
-	'uses' 		=> 'Auth\AuthController@getSocialHandle'
+Route::get('/social/handle/{provider}', [
+    'as'   => 'social.handle',
+    'uses' => 'Auth\AuthController@getSocialHandle'
 ]);
 
 // AUTHENTICATION ALIASES/REDIRECTS
-Route::get('login', function () {
+Route::get('login', function ()
+{
     return redirect('/auth/login');
 });
-Route::get('logout', function () {
+Route::get('logout', function ()
+{
     return redirect('/auth/logout');
 });
-Route::get('register', function () {
+Route::get('register', function ()
+{
     return redirect('/auth/register');
 });
-Route::get('reset', function () {
-    return redirect('/password/email');
-});
-Route::get('admin', function () {
+Route::get('reset', /**
+ * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+ */
+    function ()
+    {
+        return redirect('/password/email');
+    });
+Route::get('admin', function ()
+{
     return redirect('/dashboard');
 });
-Route::get('home', function () {
+Route::get('home', function ()
+{
     return redirect('/dashboard');
 });
 
 // USER PAGE ROUTES - RUNNING THROUGH AUTH MIDDLEWARE
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function ()
+{
 
-	// USER DASHBOARD ROUTE
-	Route::get('/dashboard', [
-	    'as' 		=> 'dashboard',
-	    'uses' 		=> 'UserController@index'
-	]);
+    // USER DASHBOARD ROUTE
+    Route::get('/dashboard', [
+        'as'   => 'dashboard',
+        'uses' => 'UserController@index'
+    ]);
 
-	//Employees
+    //Employees Routes
 
-	Route::get('employees/data', 'EmployeesController@data');
-	Route::resource('employees', 'EmployeesController');
+    Route::get('employees/data', 'EmployeesController@data');
+    Route::resource('employees', 'EmployeesController');
 
-	Route::get('employees/{id}/delete', [
-		'as' => 'employees.delete',
-		'uses' => 'EmployeesController@destroy',
-	]);
-	// USERS VIEWABLE PROFILE
-	Route::get('profile/{username}', [
-		'as' 		=> '{username}',
-		'uses' 		=> 'ProfilesController@show'
-	]);
-	Route::get('dashboard/profile/{username}', [
-		'as' 		=> '{username}',
-		'uses' 		=> 'ProfilesController@show'
-	]);
+    Route::get('employees/{id}/delete', [
+        'as'   => 'employees.delete',
+        'uses' => 'EmployeesController@destroy',
+    ]);
 
-	// MIDDLEWARE INCEPTIONED - MAKE SURE THIS IS THE CURRENT USERS PROFILE TO EDIT
-	Route::group(['middleware'=> 'currentUser'], function () {
-			Route::resource(
-				'profile',
-				'ProfilesController', [
-					'only' 	=> [
-						'show',
-						'edit',
-						'update'
-					]
-				]
-			);
-	});
+    // ComboOptions Route
+    //For DataTables data
+    Route::get('comboOptions/data', 'ComboOptionController@data');
+    Route::resource('comboOptions', 'ComboOptionController');
+
+    Route::get('comboOptions/{id}/delete', [
+        'as'   => 'comboOptions.delete',
+        'uses' => 'ComboOptionController@destroy',
+    ]);
+
+    // ComboTypes Route
+    //For DataTables data
+    Route::get('comboTypes/data', 'ComboTypeController@data');
+
+    Route::resource('comboTypes', 'ComboTypeController');
+
+    Route::get('comboTypes/{id}/delete', [
+        'as'   => 'comboTypes.delete',
+        'uses' => 'ComboTypeController@destroy',
+    ]);
+//For DataTables data
+    Route::get('obrasSociales/data', 'ObraSocialController@data');
+
+    Route::resource('obrasSociales', 'ObraSocialController');
+
+    Route::get('obrasSociales/{id}/delete', [
+        'as'   => 'obrasSociales.delete',
+        'uses' => 'ObraSocialController@destroy',
+    ]);
+//For DataTables data
+    Route::get('categories/data', 'CategoryController@data');
+    Route::get('categories/specialities/{id}', 'CategoryController@specialities');
+    Route::resource('categories', 'CategoryController');
+
+    Route::get('categories/{id}/delete', [
+        'as'   => 'categories.delete',
+        'uses' => 'CategoryController@destroy',
+    ]);
+
+    Route::get('conceptos/asignacion/datafijo', 'AsignacionConceptoController@datafijo');
+    Route::get('conceptos/asignacion/datavariable/{year}/{month}', 'AsignacionConceptoController@datavariable');
+
+    Route::resource('conceptos/asignacion', 'AsignacionConceptoController');
+
+
+//For DataTables data
+    Route::get('conceptos/data', 'ConceptoController@data');
+
+    Route::resource('conceptos', 'ConceptoController');
+
+    Route::get('conceptos/{id}/delete', [
+        'as'   => 'conceptos.delete',
+        'uses' => 'ConceptoController@destroy',
+    ]);
+
+
+//For DataTables data
+    Route::get('specialties/data', 'SpecialtyController@data');
+
+    Route::resource('specialties', 'SpecialtyController');
+
+    Route::get('specialties/{id}/delete', [
+        'as'   => 'specialties.delete',
+        'uses' => 'SpecialtyController@destroy',
+    ]);
+
+    // USERS VIEWABLE PROFILE
+    Route::get('profile/{username}', [
+        'as'   => '{username}',
+        'uses' => 'ProfilesController@show'
+    ]);
+    Route::get('dashboard/profile/{username}', [
+        'as'   => '{username}',
+        'uses' => 'ProfilesController@show'
+    ]);
+
+    // MIDDLEWARE INCEPTIONED - MAKE SURE THIS IS THE CURRENT USERS PROFILE TO EDIT
+    Route::group(['middleware' => 'currentUser'], function ()
+    {
+        Route::resource(
+            'profile',
+            'ProfilesController', [
+                'only' => [
+                    'show',
+                    'edit',
+                    'update'
+                ]
+            ]
+        );
+    });
 
 });
 
 // ADMINISTRATOR ACCESS LEVEL PAGE ROUTES - RUNNING THROUGH ADMINISTRATOR MIDDLEWARE
-Route::group(['middleware' => 'administrator'], function () {
+Route::group(['middleware' => 'administrator'], function ()
+{
 
-	// SHOW ALL USERS PAGE ROUTE
-	Route::resource('users', 'UsersManagementController');
-	Route::get('users', [
-		'as' 			=> '{username}',
-		'uses' 			=> 'UsersManagementController@showUsersMainPanel'
-	]);
+    // SHOW ALL USERS PAGE ROUTE
+    Route::resource('users', 'UsersManagementController');
+    Route::get('users', [
+        'as'   => '{username}',
+        'uses' => 'UsersManagementController@showUsersMainPanel'
+    ]);
 
-	// EDIT USERS PAGE ROUTE
-	Route::get('edit-users', [
-		'as' 			=> '{username}',
-		'uses' 			=> 'UsersManagementController@editUsersMainPanel'
-	]);
+    // EDIT USERS PAGE ROUTE
+    Route::get('edit-users', [
+        'as'   => '{username}',
+        'uses' => 'UsersManagementController@editUsersMainPanel'
+    ]);
 
-	// TAG CONTROLLER PAGE ROUTE
-	Route::resource('admin/skilltags', 'SkillsTagController', ['except' => 'show']);
+    // TAG CONTROLLER PAGE ROUTE
+    Route::resource('admin/skilltags', 'SkillsTagController', ['except' => 'show']);
 
-	// TEST ROUTE ONLY ROUTE
-	Route::get('administrator', function () {
-	    echo 'Welcome to your ADMINISTRATOR page '. Auth::user()->email .'.';
-	});
+    // TEST ROUTE ONLY ROUTE
+    Route::get('administrator', function ()
+    {
+        echo 'Welcome to your ADMINISTRATOR page ' . Auth::user()->email . '.';
+    });
 
 });
 
 // EDITOR ACCESS LEVEL PAGE ROUTES - RUNNING THROUGH EDITOR MIDDLEWARE
-Route::group(['middleware' => 'editor'], function () {
+Route::group(['middleware' => 'editor'], function ()
+{
 
-	//TEST ROUTE ONLY
-	Route::get('editor', function () {
-	    echo 'Welcome to your EDITOR page '. Auth::user()->email .'.';
-	});
+    //TEST ROUTE ONLY
+    Route::get('editor', function ()
+    {
+        echo 'Welcome to your EDITOR page ' . Auth::user()->email . '.';
+    });
 
 });
 
 // CATCH ALL ERROR FOR USERS AND NON USERS
-Route::any('/{page?}',function(){
-	if (Auth::check()) {
-	    return view('admin.errors.users404');
-	} else {
-		return View('errors.404');
-	}
-})->where('page','.*');
+Route::any('/{page?}', function ()
+{
+    if (Auth::check())
+    {
+        return view('admin.errors.users404');
+    } else
+    {
+        return View('errors.404');
+    }
+})->where('page', '.*');
+
+
 
 //***************************************************************************************//
 //***************************** USER ROUTING EXAMPLES BELOW *****************************//
@@ -212,3 +309,9 @@ Route::get('/', [
     'uses' 			=> 'UsersController@index'
 ]);
 */
+
+
+
+
+
+

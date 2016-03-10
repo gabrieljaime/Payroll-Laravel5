@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class AddSignupIpAddressToUsersTable extends Migration
-{
+class AddSignupIpAddressToUsersTable extends Migration {
+
     /**
      * Run the migrations.
      *
@@ -12,7 +12,8 @@ class AddSignupIpAddressToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table)
+        {
             $table->string('signup_ip_address')->after('remember_token');
         });
     }
@@ -24,7 +25,8 @@ class AddSignupIpAddressToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table)
+        {
             $table->dropColumn('signup_ip_address');
         });
     }

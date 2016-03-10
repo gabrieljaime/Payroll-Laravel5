@@ -1,7 +1,8 @@
 
-		<table id="TableEmployees" class="table table-striped table-hover table-bordered" >
+		<table id="TableEmployees" class="table table-striped table-hover table-bordered table-compact" >
 			<thead>
 			<tr>
+				<th class="col-md-2" > Action</th>
 				<th class="col-md-0 sorting">Legajo</th>
 				<th class="col-md-3 sorting">Nombre</th>
 				<th class="col-md-1 sorting">Cuil</th>
@@ -17,6 +18,7 @@
 			</thead>
 			<tfoot>
 			<tr>
+				<th class="col-md-2" > Action</th>
 				<th class="col-md-0">Legajo</th>
 				<th class="col-md-3">Nombre</th>
 				<th class="col-md-1">Cuil</th>

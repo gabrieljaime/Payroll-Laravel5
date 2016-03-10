@@ -5,35 +5,33 @@ use Bosnadev\Repositories\Eloquent\Repository;
 use Schema;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class employeesRepository extends Repository
-{
+class employeesRepository extends Repository {
 
     /**
-    * Configure the Model
-    *
-    **/
+     * Configure the Model
+     *
+     **/
     public function model()
     {
-      return 'App\Models\Employees';
+        return 'App\Models\Employees';
     }
 
-	public function search($input)
+    public function search($input)
     {
         $query = employees::query();
 
         $columns = Schema::getColumnListing('employees');
         $attributes = array();
 
-        foreach($columns as $attribute)
+        foreach ($columns as $attribute)
         {
-            if(isset($input[$attribute]) and !empty($input[$attribute]))
+            if (isset($input[$attribute]) and !empty($input[$attribute]))
             {
                 $query->where($attribute, $input[$attribute]);
                 $attributes[$attribute] = $input[$attribute];
-            }
-            else
+            } else
             {
-                $attributes[$attribute] =  null;
+                $attributes[$attribute] = null;
             }
         }
 
@@ -44,7 +42,7 @@ class employeesRepository extends Repository
     {
         $model = $this->find($id);
 
-        if(empty($model))
+        if (empty($model))
         {
             throw new HttpException(1001, "Employees not found");
         }
@@ -56,7 +54,7 @@ class employeesRepository extends Repository
     {
         $model = $this->find($id);
 
-        if(empty($model))
+        if (empty($model))
         {
             throw new HttpException(1001, "Employees not found");
         }

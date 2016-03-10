@@ -3,8 +3,8 @@
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
-class Administrator
-{
+class Administrator {
+
     /**
      * The Guard implementation.
      *
@@ -15,7 +15,7 @@ class Administrator
     /**
      * Create a new filter instance.
      *
-     * @param  Guard  $auth
+     * @param  Guard $auth
      * @return void
      */
     public function __construct(Guard $auth)
@@ -26,22 +26,28 @@ class Administrator
     /**
      * CHECK IF USER IS ADMINISTRATOR
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->guest()) {
-            if ($request->ajax()) {
+        if ($this->auth->guest())
+        {
+            if ($request->ajax())
+            {
                 return response('Unauthorized.', 401);
-            } else {
+            } else
+            {
                 return redirect()->guest('auth/login');
             }
-        } else {
-            if ($this->auth->user()->hasRole('administrator')) {
+        } else
+        {
+            if ($this->auth->user()->hasRole('administrator'))
+            {
                 return $next($request);
-            } else {
+            } else
+            {
                 return redirect()->guest('home');
             }
         }

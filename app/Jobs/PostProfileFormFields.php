@@ -1,14 +1,10 @@
 <?php namespace App\Jobs;
 
-use App\Jobs\Job;
-use App\Models\User;
-use App\Models\Profile;
 use App\Models\SkillsTag;
 use Carbon\Carbon;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-class PostProfileFormFields extends Job implements SelfHandling
-{
+class PostProfileFormFields extends Job implements SelfHandling {
 
     /**
      * The id (if any) of the profile row
@@ -45,15 +41,18 @@ class PostProfileFormFields extends Job implements SelfHandling
     {
         $fields = $this->fieldList;
 
-        if ($this->id) {
+        if ($this->id)
+        {
             $fields = $this->fieldsFromModel($this->id, $fields);
-        } else {
+        } else
+        {
             $when = Carbon::now()->addHour();
             $fields['publish_date'] = $when->format('M-j-Y');
             $fields['publish_time'] = $when->format('g:i A');
         }
 
-        foreach ($fields as $fieldName => $fieldValue) {
+        foreach ($fields as $fieldName => $fieldValue)
+        {
             $fields[$fieldName] = old($fieldName, $fieldValue);
         }
 
@@ -65,12 +64,12 @@ class PostProfileFormFields extends Job implements SelfHandling
 
 
     /**
-    * Return the field values from the model
-    *
-    * @param integer $id
-    * @param array $fields
-    * @return array
-    */
+     * Return the field values from the model
+     *
+     * @param integer $id
+     * @param array $fields
+     * @return array
+     */
     protected function fieldsFromModel($id, array $fields)
     {
         //$profile = User::findOrFail($id);
@@ -79,15 +78,15 @@ class PostProfileFormFields extends Job implements SelfHandling
         $fieldNames = array_keys(array_except($fields, ['tags']));
 
         $fields = ['id' => $id];
-        foreach ($fieldNames as $field) {
-          $fields[$field] = $profile->{$field};
+        foreach ($fieldNames as $field)
+        {
+            $fields[$field] = $profile->{$field};
         }
 
         //$fields['tags'] = $profile->tags()->lists('tag')->all();
 
         return $fields;
     }
-
 
 
 }

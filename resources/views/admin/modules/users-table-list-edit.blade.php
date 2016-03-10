@@ -23,7 +23,7 @@
 					<td>
 						{!! Form::open(array('url' => 'users/' . $value->id, 'class' => 'pull-right')) !!}
 							{!! Form::hidden('_method', 'DELETE') !!}
-							{!! Form::button('<i class="fa fa-trash-o fa-fw" aria-hidden="true"></i> Delete this User', array('class' => 'btn btn-danger btn-block btn-flat','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete User', 'data-message' => 'Are you sure you want to delete this user ?')) !!}
+							{!! Form::button('<i class="fa fa-trash-o fa-fw" aria-hidden="true"></i> Delete this Puto', array('class' => 'btn btn-danger btn-block btn-flat','type' => 'button', 'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete PUtos', 'data-message' => 'Are you sure Esta seguro de borar putose this user ?')) !!}
 						{!! Form::close() !!}
 					</td>
 					<td>

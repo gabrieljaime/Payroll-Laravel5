@@ -12,6 +12,8 @@
 <!-- FastClick -->
 {!! Html::script('assets/plugins/fastclick/fastclick.js') !!}
 
+{!! Html::script('assets/plugins/iCheck/icheck.min.js') !!}
+
 
 
 

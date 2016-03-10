@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class AddSignupAdminIpAddressToUsersTable extends Migration
-{
+class AddSignupAdminIpAddressToUsersTable extends Migration {
+
     /**
      * Run the migrations.
      *
@@ -12,7 +12,8 @@ class AddSignupAdminIpAddressToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table)
+        {
             $table->string('admin_ip_address')->after('signup_sm_ip_address');
         });
     }
@@ -24,7 +25,8 @@ class AddSignupAdminIpAddressToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table)
+        {
             $table->dropColumn('admin_ip_address');
         });
     }

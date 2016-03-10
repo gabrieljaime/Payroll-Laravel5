@@ -15,7 +15,7 @@
 .select2-container.form-control {
   background: transparent;
   border: none;
-  display:inline-block;
+  display: block;
   /* 1 */
   margin: 0;
   padding: 0;
@@ -285,7 +285,7 @@
 }
 
 .select2-drop-active {
-  border-color: #66afe9;
+  border-color: #66afe9 !important;
 }
 
 .select2-drop-auto-width,

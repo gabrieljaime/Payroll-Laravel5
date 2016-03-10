@@ -1,19 +1,19 @@
 <!-- Fecha Ingreso Field -->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
-    {!! Form::text('fecha_ingreso', null, ['class' => 'form-control']) !!}
+    {!! Form::input('date','fecha_ingreso', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Categoria Field -->
-<div class="form-group col-sm-6 col-lg-4">
+<div class="form-group col-sm-6 col-lg-4"  >
     {!! Form::label('categoria', 'Categoria:') !!}
-    {!! Form::select('categoria', ['categoria'],null, ['class' => 'form-control']) !!}
+    {!! Form::select('categoria', $Category ,null, ['class' => 'form-control','data-role'=>'select', 'data-placeholder'=>'Seleccione una Categoria','data-allow-clear'=>'true']) !!}
 </div>
 
 <!-- Subcategoria Field -->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('subcategoria', 'Subcategoria:') !!}
-    {!! Form::select('subcategoria',['especialidad'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('subcategoria',$Specialty, null, ['class' => 'form-control','data-role'=>'select', 'data-placeholder'=>'Seleccione una Subcategoria','data-allow-clear'=>'true']) !!}
 </div>
 
 <!-- Tipo Contrato Field -->
@@ -24,7 +24,7 @@
 <!-- Ubicacion Field -->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('ubicacion', 'Ubicación:') !!}
-    {!! Form::select('ubicacion', ['ubicaciones'],null,['class' => 'form-control']) !!}
+    {!! Form::select('ubicacion', $Ubicacion ,null,['class' => 'form-control']) !!}
 </div>
 <!-- Turno Field -->
 <div class="form-group col-sm-6 col-lg-4">

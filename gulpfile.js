@@ -51,22 +51,22 @@
  | Loads - Core and Plugin Preprocessors load calls
  |--------------------------------------------------------------------------
  */
-	var gulp = require('gulp'),
-		elixir = require('laravel-elixir'),
-	    sass = require('gulp-ruby-sass'),
-	    autoprefixer = require('gulp-autoprefixer'),
-	    nano = require('gulp-cssnano'),
-	    jshint = require('gulp-jshint'),
-	    uglify = require('gulp-uglify'),
-	    imagemin = require('gulp-imagemin'),
-	    rename = require('gulp-rename'),
-	    concat = require('gulp-concat'),
-	    notify = require('gulp-notify'),
-	    cache = require('gulp-cache'),
-	    livereload = require('gulp-livereload'),
-	    del = require('del'),
-	    less = require('gulp-less'),
-	    lessToScss = require('gulp-less-to-scss');
+var gulp = require('gulp'),
+    elixir = require('laravel-elixir'),
+    sass = require('gulp-ruby-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
+    nano = require('gulp-cssnano'),
+    jshint = require('gulp-jshint'),
+    uglify = require('gulp-uglify'),
+    imagemin = require('gulp-imagemin'),
+    rename = require('gulp-rename'),
+    concat = require('gulp-concat'),
+    notify = require('gulp-notify'),
+    cache = require('gulp-cache'),
+    livereload = require('gulp-livereload'),
+    del = require('del'),
+    less = require('gulp-less'),
+    lessToScss = require('gulp-less-to-scss');
 /*
  |--------------------------------------------------------------------------
  |  #######                 ######   #######  ##    ## ######## ########   #######  ##       ##       ######## ########
@@ -84,23 +84,23 @@
  | 2 = OFF
  |--------------------------------------------------------------------------
  */
-	/* ADMIN -------------------------------------------------------------------*/
-	var enable_compile_admin 		= 1;			// Compile Admin Assets?
-	var enable_compile_admin_css	= 1;			// Compile Admin CSS?
-	var enable_compile_admin_js		= 1;			// Compile Admin JS?
+/* ADMIN -------------------------------------------------------------------*/
+var enable_compile_admin = 1;			// Compile Admin Assets?
+var enable_compile_admin_css = 1;			// Compile Admin CSS?
+var enable_compile_admin_js = 1;			// Compile Admin JS?
 
-	/* LOGIN -------------------------------------------------------------------*/
-	var enable_compile_login 		= 1;			// Compile Login Assets?
-	var enable_compile_login_css	= 1;			// Compile Login CSS?
-	var enable_compile_login_js		= 1;			// Compile Login JS?
+/* LOGIN -------------------------------------------------------------------*/
+var enable_compile_login = 1;			// Compile Login Assets?
+var enable_compile_login_css = 1;			// Compile Login CSS?
+var enable_compile_login_js = 1;			// Compile Login JS?
 
-	/* APP __-------------------------------------------------------------------*/
-	var enable_compile_app			= 0;			// Compile App Assets?
-	var enable_compile_app_css		= 0;			// Compile App CSS?
-	var enable_compile_app_js		= 0;			// Compile App JS?
+/* APP __-------------------------------------------------------------------*/
+var enable_compile_app = 0;			// Compile App Assets?
+var enable_compile_app_css = 0;			// Compile App CSS?
+var enable_compile_app_js = 0;			// Compile App JS?
 
-	/* PHPUNIT -----------------------------------------------------------------*/
-	var enable_unit_testing 		= 0;			// Compile phpUnit Testing?
+/* PHPUNIT -----------------------------------------------------------------*/
+var enable_unit_testing = 0;			// Compile phpUnit Testing?
 
 /*
  |--------------------------------------------------------------------------
@@ -118,119 +118,119 @@
  | Do a 'gulp copyfiles' after bower updates
  |--------------------------------------------------------------------------
  */
-gulp.task("copyfiles", function() {
-	/*
-	 |--------------------------------------------------------------------------
-	 | Copy AdminLTE Asset Files
-	 |--------------------------------------------------------------------------
-	 */
-	gulp.src("vendor/bower_dl/adminLTE/bootstrap/**")
-		.pipe(gulp.dest("resources/assets/adminlte/bootstrap"));
+gulp.task("copyfiles", function () {
+    /*
+     |--------------------------------------------------------------------------
+     | Copy AdminLTE Asset Files
+     |--------------------------------------------------------------------------
+     */
+    gulp.src("vendor/bower_dl/adminLTE/bootstrap/**")
+        .pipe(gulp.dest("resources/assets/adminlte/bootstrap"));
 
-	gulp.src("vendor/bower_dl/adminLTE/build/**")
-		.pipe(gulp.dest("resources/assets/adminlte/build"));
+    gulp.src("vendor/bower_dl/adminLTE/build/**")
+        .pipe(gulp.dest("resources/assets/adminlte/build"));
 
-	gulp.src("vendor/bower_dl/adminLTE/dist/**")
-		.pipe(gulp.dest("resources/assets/adminlte/dist"));
+    gulp.src("vendor/bower_dl/adminLTE/dist/**")
+        .pipe(gulp.dest("resources/assets/adminlte/dist"));
 
-	gulp.src("vendor/bower_dl/adminLTE/pages/**")
-		.pipe(gulp.dest("resources/assets/adminlte/pages"));
+    gulp.src("vendor/bower_dl/adminLTE/pages/**")
+        .pipe(gulp.dest("resources/assets/adminlte/pages"));
 
-	gulp.src("vendor/bower_dl/adminLTE/plugins/**")
-		.pipe(gulp.dest("resources/assets/adminlte/plugins"));
+    gulp.src("vendor/bower_dl/adminLTE/plugins/**")
+        .pipe(gulp.dest("resources/assets/adminlte/plugins"));
 
-	gulp.src("vendor/bower_dl/adminLTE/starter.html")
-		.pipe(gulp.dest("resources/assets/adminlte/pages/starter.html"));
+    gulp.src("vendor/bower_dl/adminLTE/starter.html")
+        .pipe(gulp.dest("resources/assets/adminlte/pages/starter.html"));
 
-	gulp.src("vendor/bower_dl/adminLTE/index.html")
-		.pipe(gulp.dest("resources/assets/adminlte/pages/example1.html"));
+    gulp.src("vendor/bower_dl/adminLTE/index.html")
+        .pipe(gulp.dest("resources/assets/adminlte/pages/example1.html"));
 
-	gulp.src("vendor/bower_dl/adminLTE/index2.html")
-		.pipe(gulp.dest("resources/assets/adminlte/pages/example2.html"));
+    gulp.src("vendor/bower_dl/adminLTE/index2.html")
+        .pipe(gulp.dest("resources/assets/adminlte/pages/example2.html"));
 
-	gulp.src("vendor/bower_dl/adminLTE/index2.html")
-		.pipe(gulp.dest("resources/assets/adminlte/pages/example2.html"));
+    gulp.src("vendor/bower_dl/adminLTE/index2.html")
+        .pipe(gulp.dest("resources/assets/adminlte/pages/example2.html"));
 
-	gulp.src("resources/assets/adminlte/plugins/iCheck/square/blue.png")
-		.pipe(gulp.dest("public/assets/css/admin/"));
+    gulp.src("resources/assets/adminlte/plugins/iCheck/square/blue.png")
+        .pipe(gulp.dest("public/assets/css/admin/"));
 
-	gulp.src("resources/assets/adminlte/plugins/iCheck/square/blue@2x.png")
-		.pipe(gulp.dest("public/assets/css/admin/"));
+    gulp.src("resources/assets/adminlte/plugins/iCheck/square/blue@2x.png")
+        .pipe(gulp.dest("public/assets/css/admin/"));
 
-	/*
-	 |--------------------------------------------------------------------------
-	 | Copy Bootstrap and FontAwesome
-	 |--------------------------------------------------------------------------
-	 */
-	gulp.src("vendor/bower_dl/bootstrap/**")
-		.pipe(gulp.dest("resources/assets/bootstrap/"));
+    /*
+     |--------------------------------------------------------------------------
+     | Copy Bootstrap and FontAwesome
+     |--------------------------------------------------------------------------
+     */
+    gulp.src("vendor/bower_dl/bootstrap/**")
+        .pipe(gulp.dest("resources/assets/bootstrap/"));
 
-	gulp.src("vendor/bower_dl/bootstrap/dist/fonts/**")
-		.pipe(gulp.dest("public/assets/fonts"));
+    gulp.src("vendor/bower_dl/bootstrap/dist/fonts/**")
+        .pipe(gulp.dest("public/assets/fonts"));
 
-	gulp.src("vendor/bower_dl/bootstrap/dist/fonts/**")
-		.pipe(gulp.dest("public/assets/css/fonts"));
+    gulp.src("vendor/bower_dl/bootstrap/dist/fonts/**")
+        .pipe(gulp.dest("public/assets/css/fonts"));
 
-	gulp.src("vendor/bower_dl/fontawesome/**")
-		.pipe(gulp.dest("resources/assets/fontawesome/"));
+    gulp.src("vendor/bower_dl/fontawesome/**")
+        .pipe(gulp.dest("resources/assets/fontawesome/"));
 
-	gulp.src("vendor/bower_dl/fontawesome/fonts/**")
-		.pipe(gulp.dest("public/assets/css/fonts"));
+    gulp.src("vendor/bower_dl/fontawesome/fonts/**")
+        .pipe(gulp.dest("public/assets/css/fonts"));
 
-	gulp.src("vendor/bower_dl/ionicons/**")
-		.pipe(gulp.dest("resources/assets/ionicons/"));
+    gulp.src("vendor/bower_dl/ionicons/**")
+        .pipe(gulp.dest("resources/assets/ionicons/"));
 
-	gulp.src("vendor/bower_dl/ionicons/fonts/**")
-		.pipe(gulp.dest("public/assets/css/fonts"));
+    gulp.src("vendor/bower_dl/ionicons/fonts/**")
+        .pipe(gulp.dest("public/assets/css/fonts"));
 
-	/*
-	 |--------------------------------------------------------------------------
-	 | Copy jQuery and jQuery UI JS Assets
-	 |--------------------------------------------------------------------------
-	 */
-	gulp.src("vendor/bower_dl/jquery/dist/jquery.js")
-		.pipe(gulp.dest("resources/assets/js/"));
+    /*
+     |--------------------------------------------------------------------------
+     | Copy jQuery and jQuery UI JS Assets
+     |--------------------------------------------------------------------------
+     */
+    gulp.src("vendor/bower_dl/jquery/dist/jquery.js")
+        .pipe(gulp.dest("resources/assets/js/"));
 
-	gulp.src("vendor/bower_dl/jquery-ui/jquery-ui.js")
-		.pipe(gulp.dest("resources/assets/js/"));
+    gulp.src("vendor/bower_dl/jquery-ui/jquery-ui.js")
+        .pipe(gulp.dest("resources/assets/js/"));
 
 
-	/*
-	 |--------------------------------------------------------------------------
-	 | Copy jQuery.hideShowPassword Assets
-	 |--------------------------------------------------------------------------
-	 */
-	gulp.src("vendor/bower_dl/hideShowPassword/hideShowPassword.min.js")
-		.pipe(gulp.dest("resources/assets/js/"));
+    /*
+     |--------------------------------------------------------------------------
+     | Copy jQuery.hideShowPassword Assets
+     |--------------------------------------------------------------------------
+     */
+    gulp.src("vendor/bower_dl/hideShowPassword/hideShowPassword.min.js")
+        .pipe(gulp.dest("resources/assets/js/"));
 
-	gulp.src("vendor/bower_dl/hideShowPassword/hideShowPassword.js")
-		.pipe(gulp.dest("resources/assets/js/"));
+    gulp.src("vendor/bower_dl/hideShowPassword/hideShowPassword.js")
+        .pipe(gulp.dest("resources/assets/js/"));
 
-	gulp.src("vendor/bower_dl/hideShowPassword/images/**")
-		.pipe(gulp.dest("public/assets/js/images/"));
+    gulp.src("vendor/bower_dl/hideShowPassword/images/**")
+        .pipe(gulp.dest("public/assets/js/images/"));
 
-	gulp.src("vendor/bower_dl/hideShowPassword/css/**")
-		.pipe(gulp.dest("public/assets/css/hideShowPassword/"));
+    gulp.src("vendor/bower_dl/hideShowPassword/css/**")
+        .pipe(gulp.dest("public/assets/css/hideShowPassword/"));
 
-	gulp.src("vendor/bower_dl/hideShowPassword/images/**")
-		.pipe(gulp.dest("public/assets/css/hideShowPassword/images"));
+    gulp.src("vendor/bower_dl/hideShowPassword/images/**")
+        .pipe(gulp.dest("public/assets/css/hideShowPassword/images"));
 
-	/*
-	 |--------------------------------------------------------------------------
-	 | Copy Datatables Assets
-	 |--------------------------------------------------------------------------
-	 */
-	var dtDir = 'vendor/bower_dl/datatables-plugins/integration/';
+    /*
+     |--------------------------------------------------------------------------
+     | Copy Datatables Assets
+     |--------------------------------------------------------------------------
+     */
+    var dtDir = 'vendor/bower_dl/datatables-plugins/integration/';
 
-	gulp.src("vendor/bower_dl/datatables/media/js/jquery.dataTables.js")
-	    	.pipe(gulp.dest('resources/assets/js/'));
+    gulp.src("vendor/bower_dl/datatables/media/js/jquery.dataTables.js")
+        .pipe(gulp.dest('resources/assets/js/'));
 
-	gulp.src(dtDir + 'bootstrap/3/dataTables.bootstrap.css')
-	    	.pipe(rename('dataTables.bootstrap.less'))
-	    	.pipe(gulp.dest('resources/assets/less/others/'));
+    gulp.src(dtDir + 'bootstrap/3/dataTables.bootstrap.css')
+        .pipe(rename('dataTables.bootstrap.less'))
+        .pipe(gulp.dest('resources/assets/less/others/'));
 
-	gulp.src(dtDir + 'bootstrap/3/dataTables.bootstrap.js')
-	    	.pipe(gulp.dest('resources/assets/js/'));
+    gulp.src(dtDir + 'bootstrap/3/dataTables.bootstrap.js')
+        .pipe(gulp.dest('resources/assets/js/'));
 
 });
 
@@ -239,78 +239,78 @@ gulp.task("copyfiles", function() {
  | Default gulp is to run this elixir laravel function - builds on gulp
  |--------------------------------------------------------------------------
  */
-elixir(function(mix) {
-	/*
-	 |--------------------------------------------------------------------------
-	 | ##                         ###    ########  ##     ## #### ##    ##
-	 | ##    ##                  ## ##   ##     ## ###   ###  ##  ###   ##
-	 | ##    ##                 ##   ##  ##     ## #### ####  ##  ####  ##
-	 | ##    ##     #######    ##     ## ##     ## ## ### ##  ##  ## ## ##
-	 | #########               ######### ##     ## ##     ##  ##  ##  ####
-	 |       ##                ##     ## ##     ## ##     ##  ##  ##   ###
-	 |       ##                ##     ## ########  ##     ## #### ##    ##
-	 |--------------------------------------------------------------------------
-	 */
-	//PROCESS ADMIN ASSETS
-	if (enable_compile_admin) {
+elixir(function (mix) {
+    /*
+     |--------------------------------------------------------------------------
+     | ##                         ###    ########  ##     ## #### ##    ##
+     | ##    ##                  ## ##   ##     ## ###   ###  ##  ###   ##
+     | ##    ##                 ##   ##  ##     ## #### ####  ##  ####  ##
+     | ##    ##     #######    ##     ## ##     ## ## ### ##  ##  ## ## ##
+     | #########               ######### ##     ## ##     ##  ##  ##  ####
+     |       ##                ##     ## ##     ## ##     ##  ##  ##   ###
+     |       ##                ##     ## ########  ##     ## #### ##    ##
+     |--------------------------------------------------------------------------
+     */
+    //PROCESS ADMIN ASSETS
+    if (enable_compile_admin) {
 
-		// COMPILE ADMIN AND BOOTSTRAP LESS - ADMIN CSS
-		if (enable_compile_admin_css) {
-			mix.less('admin.less', 'public/assets/css/admin/components/admin-core.css');
-			mix.less('admin-skins.less', 'public/assets/css/admin/components/admin-skins.css');
-			mix.less('admin-font-icons.less', 'public/assets/css/admin/components/admin-font-icons.css');
-			mix.less('bootstrap/bootstrap.less', 'public/assets/css/vendor/bootstrap.css');
+        // COMPILE ADMIN AND BOOTSTRAP LESS - ADMIN CSS
+        if (enable_compile_admin_css) {
+            mix.less('admin.less', 'public/assets/css/admin/components/admin-core.css');
+            mix.less('admin-skins.less', 'public/assets/css/admin/components/admin-skins.css');
+            mix.less('admin-font-icons.less', 'public/assets/css/admin/components/admin-font-icons.css');
+            mix.less('bootstrap/bootstrap.less', 'public/assets/css/vendor/bootstrap.css');
 
-			// //COMBINE ADMIN DASHBOARD CSS FILES INTO SINGLE FILE - ADMIN CSS
-		    mix.styles([
-				'public/assets/css/vendor/bootstrap.css',												// BOOTSTRAP CORE INPUT
-				'public/assets/css/admin/components/admin-core.css',									// ADMIN LTE CORE INPUT
-				'public/assets/css/admin/components/admin-skins.css',									// ADMIN LTE SKINS INPUT
-				'public/assets/css/admin/components/admin-font-icons.css',								// ADMIN LTE FONT ICONS INPUT
-		        'resources/assets/adminlte/plugins/iCheck/flat/blue.css',								// ADMINLTE PLUGIN CSS - iCheck
-		        'resources/assets/adminlte/plugins/morris/morris.css',									// ADMINLTE PLUGIN CSS - Morris chart
-		        'resources/assets/adminlte/plugins/datatables/dataTables.bootstrap.css',				// ADMINLTE PLUGIN CSS - DataTables
-		        'resources/assets/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.css',				// ADMINLTE PLUGIN CSS - jvectormap
-		        'resources/assets/adminlte/plugins/datepicker/datepicker3.css',							// ADMINLTE PLUGIN CSS - Date Picker
-		        'resources/assets/adminlte/plugins/daterangepicker/daterangepicker-bs3.css',			// ADMINLTE PLUGIN CSS - Daterange picker
-				'resources/assets/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css'	    // ADMINLTE PLUGIN CSS - Bootstrap wysihtml5 text editor
+            // //COMBINE ADMIN DASHBOARD CSS FILES INTO SINGLE FILE - ADMIN CSS
+            mix.styles([
+                    'public/assets/css/vendor/bootstrap.css',												// BOOTSTRAP CORE INPUT
+                    'public/assets/css/admin/components/admin-core.css',									// ADMIN LTE CORE INPUT
+                    'public/assets/css/admin/components/admin-skins.css',									// ADMIN LTE SKINS INPUT
+                    'public/assets/css/admin/components/admin-font-icons.css',								// ADMIN LTE FONT ICONS INPUT
+                    'resources/assets/adminlte/plugins/iCheck/flat/blue.css',								// ADMINLTE PLUGIN CSS - iCheck
+                    'resources/assets/adminlte/plugins/morris/morris.css',									// ADMINLTE PLUGIN CSS - Morris chart
+                    'resources/assets/adminlte/plugins/datatables/dataTables.bootstrap.css',				// ADMINLTE PLUGIN CSS - DataTables
+                    'resources/assets/adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.css',				// ADMINLTE PLUGIN CSS - jvectormap
+                    'resources/assets/adminlte/plugins/datepicker/datepicker3.css',							// ADMINLTE PLUGIN CSS - Date Picker
+                    'resources/assets/adminlte/plugins/daterangepicker/daterangepicker-bs3.css',			// ADMINLTE PLUGIN CSS - Daterange picker
+                    'resources/assets/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css'	    // ADMINLTE PLUGIN CSS - Bootstrap wysihtml5 text editor
 
-		    ],
-		    'public/assets/css/admin/admin.css', './');													// SINGLE FILE OUTPUT
-		}
+                ],
+                'public/assets/css/admin/admin.css', './');													// SINGLE FILE OUTPUT
+        }
 
-		// COMBINE ADMIN SCRIPTS - ADMIN JS
-		if (enable_compile_admin_js) {
+        // COMBINE ADMIN SCRIPTS - ADMIN JS
+        if (enable_compile_admin_js) {
 
-			mix.scripts([
-					'js/jquery.js',
-					'js/jquery-ui.js',
-					'bootstrap/dist/js/bootstrap.js',
-					'adminlte/dist/js/app.js',
-					'adminlte/plugins/datatables/jquery.dataTables.min.js',
-					'adminlte/plugins/datatables/dataTables.bootstrap.min.js',
-					'adminlte/plugins/morris/morris.js',
-					'adminlte/plugins/sparkline/jquery.sparkline.js',
-					'adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.js',
-					'adminlte/plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
-					'adminlte/plugins/knob/jquery.knob.js',
-					'adminlte/plugins/daterangepicker/daterangepicker.js',
-					'adminlte/plugins/datepicker/bootstrap-datepicker.js',
-					'adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js',
-					'adminlte/plugins/slimScroll/jquery.slimscroll.js',
-					'adminlte/plugins/fastclick/fastclick.js',
-					//'adminlte/dist/js/pages/dashboard.js',
-					'js/random-class-color.js',
-					'js/hideShowPassword.js',
-			    ],
-				'public/assets/js/admin/admin.js',
-				'resources/assets'
-			);
-		}
-	}
+            mix.scripts([
+                    'js/jquery.js',
+                    'js/jquery-ui.js',
+                    'bootstrap/dist/js/bootstrap.js',
+                    'adminlte/dist/js/app.js',
+                    'adminlte/plugins/datatables/jquery.dataTables.min.js',
+                    'adminlte/plugins/datatables/dataTables.bootstrap.min.js',
+                    'adminlte/plugins/morris/morris.js',
+                    'adminlte/plugins/sparkline/jquery.sparkline.js',
+                    'adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.js',
+                    'adminlte/plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
+                    'adminlte/plugins/knob/jquery.knob.js',
+                    'adminlte/plugins/daterangepicker/daterangepicker.js',
+                    'adminlte/plugins/datepicker/bootstrap-datepicker.js',
+                    'adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js',
+                    'adminlte/plugins/slimScroll/jquery.slimscroll.js',
+                    'adminlte/plugins/fastclick/fastclick.js',
+                    //'adminlte/dist/js/pages/dashboard.js',
+                    'js/random-class-color.js',
+                    'js/hideShowPassword.js',
+                ],
+                'public/assets/js/admin/admin.js',
+                'resources/assets'
+            );
+        }
+    }
 
-	/*
-	 |--------------------------------------------------------------------------
+    /*
+     |--------------------------------------------------------------------------
      | ########               ##        #######   ######   #### ##    ##
      | ##                     ##       ##     ## ##    ##   ##  ###   ##
      | ##                     ##       ##     ## ##         ##  ####  ##
@@ -318,43 +318,43 @@ elixir(function(mix) {
      |       ##               ##       ##     ## ##    ##   ##  ##  ####
      | ##    ##               ##       ##     ## ##    ##   ##  ##   ###
      |  ######                ########  #######   ######   #### ##    ##
-	 |--------------------------------------------------------------------------
-	 */
-	// PROCESS APP ASSETS
-	if (enable_compile_login) {
+     |--------------------------------------------------------------------------
+     */
+    // PROCESS APP ASSETS
+    if (enable_compile_login) {
 
-		// COMPILE LOGIN CSS/SCSS - LOGIN CSS
-		if (enable_compile_login_css) {
+        // COMPILE LOGIN CSS/SCSS - LOGIN CSS
+        if (enable_compile_login_css) {
 
-			//COMBINE LOGIN CSS FILES INTO SINGLE FILE - LOGIN CSS
-		    mix.styles([
-				'public/assets/css/vendor/bootstrap.css',												// BOOTSTRAP CORE INPUT
-				'public/assets/css/admin/components/admin-core.css',									// ADMIN LTE CORE INPUT
-				'public/assets/css/admin/components/admin-skins.css',									// ADMIN LTE SKINS INPUT
-				'resources/assets/adminlte/plugins/iCheck/flat/blue.css',								// ADMINLTE PLUGIN CSS - iCheck
-				'public/assets/css/admin/components/admin-font-icons.css',								// ADMIN LTE FONT ICONS INPUT
-				'resources/assets/adminlte/plugins/iCheck/square/blue.css',
-		    ],
-		    'public/assets/css/admin/login.css', './');													// SINGLE FILE OUTPUT
-		}
+            //COMBINE LOGIN CSS FILES INTO SINGLE FILE - LOGIN CSS
+            mix.styles([
+                    'public/assets/css/vendor/bootstrap.css',												// BOOTSTRAP CORE INPUT
+                    'public/assets/css/admin/components/admin-core.css',									// ADMIN LTE CORE INPUT
+                    'public/assets/css/admin/components/admin-skins.css',									// ADMIN LTE SKINS INPUT
+                    'resources/assets/adminlte/plugins/iCheck/flat/blue.css',								// ADMINLTE PLUGIN CSS - iCheck
+                    'public/assets/css/admin/components/admin-font-icons.css',								// ADMIN LTE FONT ICONS INPUT
+                    'resources/assets/adminlte/plugins/iCheck/square/blue.css',
+                ],
+                'public/assets/css/admin/login.css', './');													// SINGLE FILE OUTPUT
+        }
 
-		//COMBINE LOGIN SCRIPTS - LOGIN JS
-		if (enable_compile_login_js) {
-		    mix.scripts([
-					'js/jquery.js',
-					'bootstrap/dist/js/bootstrap.js',
-					'resources/assets/adminlte/plugins/iCheck/icheck.min.js',
-					'js/hideShowPassword.js',
-			    ],
-			    'public/assets/js/login.js',
-			    'resources/assets'
-		   	);
-		}
+        //COMBINE LOGIN SCRIPTS - LOGIN JS
+        if (enable_compile_login_js) {
+            mix.scripts([
+                    'js/jquery.js',
+                    'bootstrap/dist/js/bootstrap.js',
+                    'resources/assets/adminlte/plugins/iCheck/icheck.min.js',
+                    'js/hideShowPassword.js',
+                ],
+                'public/assets/js/login.js',
+                'resources/assets'
+            );
+        }
 
-	}
+    }
 
-	/*
-	 |--------------------------------------------------------------------------
+    /*
+     |--------------------------------------------------------------------------
      |  #######                   ###    ########  ########
      | ##     ##                 ## ##   ##     ## ##     ##
      | ##                       ##   ##  ##     ## ##     ##
@@ -362,32 +362,32 @@ elixir(function(mix) {
      | ##     ##               ######### ##        ##
      | ##     ##               ##     ## ##        ##
      |  #######                ##     ## ##        ##
-	 |--------------------------------------------------------------------------
-	 */
-	// PROCESS APP ASSETS
-	if (enable_compile_app) {
+     |--------------------------------------------------------------------------
+     */
+    // PROCESS APP ASSETS
+    if (enable_compile_app) {
 
-		// COMIPILE APP SASS/SCSS - APP CSS
-		if (enable_compile_app_css) {
-			mix.sass('app.scss', 'public/assets/css/app.css');
-		}
+        // COMIPILE APP SASS/SCSS - APP CSS
+        if (enable_compile_app_css) {
+            mix.sass('app.scss', 'public/assets/css/app.css');
+        }
 
-		//COMBINE APP SCRIPTS - APP JS
-		if (enable_compile_app_js) {
-		    mix.scripts([
-					'js/jquery.js',
-					'js/bootstrap.js',
-					'js/app.js',
-			    ],
-			    'public/assets/js/app.js',
-			    'resources/assets'
-		   	);
-		}
+        //COMBINE APP SCRIPTS - APP JS
+        if (enable_compile_app_js) {
+            mix.scripts([
+                    'js/jquery.js',
+                    'js/bootstrap.js',
+                    'js/app.js',
+                ],
+                'public/assets/js/app.js',
+                'resources/assets'
+            );
+        }
 
-	}
+    }
 
-	/*
-	 |--------------------------------------------------------------------------
+    /*
+     |--------------------------------------------------------------------------
      | ########               ######## ########  ######  ######## #### ##    ##  ######
      | ##    ##                  ##    ##       ##    ##    ##     ##  ###   ## ##    ##
      |     ##                    ##    ##       ##          ##     ##  ####  ## ##
@@ -395,12 +395,12 @@ elixir(function(mix) {
      |   ##                      ##    ##             ##    ##     ##  ##  #### ##    ##
      |   ##                      ##    ##       ##    ##    ##     ##  ##   ### ##    ##
      |   ##                      ##    ########  ######     ##    #### ##    ##  ######
-	 |--------------------------------------------------------------------------
-	 */
-	// START phpUnit FOR UNIT TESTING
-	if (enable_unit_testing) {
-		mix.phpUnit();
-	}
+     |--------------------------------------------------------------------------
+     */
+    // START phpUnit FOR UNIT TESTING
+    if (enable_unit_testing) {
+        mix.phpUnit();
+    }
 
 });
 

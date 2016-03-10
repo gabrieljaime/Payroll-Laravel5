@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateSkillsTagPivot extends Migration
-{
+class CreateSkillsTagPivot extends Migration {
+
     /**
      * Run the migrations.
      *
@@ -12,7 +12,8 @@ class CreateSkillsTagPivot extends Migration
      */
     public function up()
     {
-        Schema::create('skills_tag_pivot', function (Blueprint $table) {
+        Schema::create('skills_tag_pivot', function (Blueprint $table)
+        {
             $table->increments('id');
             $table->integer('tag_id')->unsigned()->index();
             $table->timestamps();

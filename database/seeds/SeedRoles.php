@@ -1,28 +1,29 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Models\Role;
+use Illuminate\Database\Seeder;
 
-class SeedRoles extends Seeder
-{
+class SeedRoles extends Seeder {
+
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run(){
+    public function run()
+    {
         DB::table('roles')->delete();
 
         Role::create([
-            'name'   => 'user'
+            'name' => 'user'
         ]);
 
         Role::create([
-            'name'   => 'editor'
+            'name' => 'editor'
         ]);
 
         Role::create([
-            'name'   => 'administrator'
+            'name' => 'administrator'
         ]);
 
     }

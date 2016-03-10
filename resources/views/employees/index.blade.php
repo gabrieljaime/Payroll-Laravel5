@@ -27,6 +27,7 @@
         <div class="box box-primary">
 
                 @include('flash::message')
+                @include('admin.modals.confirm-delete-gr')
 
                 <div class="box-header">
                     <div class="pull-right box-tools">
@@ -73,8 +74,15 @@
                // Setup - add a text input to each footer cell
                $('#TableEmployees tfoot th').each( function () {
                    var title = $(this).text();
-                   $(this).html( '<input type="text" id="search'+title+'" class="form-control" placeholder="Search '+title+'" />' );
-               } );
+                   if (title!= " Action")
+                   {
+                       $(this).html( '<input type="search" id="search'+title+'" class="form-control" placeholder="Search '+title+'" />' );
+                   }
+                   else
+                   {
+                       $(this).html( '' );
+                   }
+                  } );
                var r = $('#TableEmployees tfoot tr');
                r.find('th').each(function(){
                    $(this).css('padding', 5);
@@ -84,9 +92,10 @@
                $('#search_0').css('text-align', 'center');
                 $('#TableEmployees').DataTable({
                    "scrollX": true,
-                   "processing": true,
+                       "processing": true,
                  "serverSide": true,
                    "autoFill": true,
+                    "autoWidth": true,
                     "dom": 'lfrtip<"clear"B>',
                 "ajax": {
                     "url": '{{ URL::to('employees/data') }}'
@@ -95,7 +104,7 @@
                         dom: {
                                 button: {
                                 tag: 'a',
-                                className: 'btn btn-primary'
+                                className: 'btn btn-s btn-primary'
                             }
                         },
                     buttons:  [{
@@ -117,17 +126,18 @@
                     }
                     ]},
                 "columns": [
-                    { "targets" : [0],"data": "id" },
-                    { "targets" : [1],"data": "nombre" },
-                    { "targets" : [2],"data": "cuil" },
-                    { "targets" : [3],"data": "fecha_ingreso" },
-                    { "targets" : [4],"data": "categoria" },
-                    { "targets" : [5],"data": "subcategoria" },
-                    { "targets" : [6],"data": "tipo_documento" },
-                    { "targets" : [7],"data": "numero_documento" },
-                    { "targets" : [8],"data": "basico" },
-                    { "targets" : [9],"data": "activo" },
-                    { "targets" : [10],"data": "estado" }
+                    { "targets" : [0],"data": "actions", orderable: false, searchable: false },
+                    { "targets" : [1],"data": "id" },
+                    { "targets" : [2],"data": "nombre" },
+                    { "targets" : [3],"data": "cuil" },
+                    { "targets" : [4],"data": "fecha_ingreso" },
+                    { "targets" : [5],"data": "categoria" },
+                    { "targets" : [6],"data": "subcategoria" },
+                    { "targets" : [7],"data": "tipo_documento" },
+                    { "targets" : [8],"data": "numero_documento" },
+                    { "targets" : [9],"data": "basico" },
+                    { "targets" : [10],"data": "activo" },
+                    { "targets" : [11],"data": "estado" }
                 ]
             });
 
@@ -135,18 +145,13 @@
                // Apply the search
                table.columns().each( function () {
                    var that = this;
-//                   $( 'input', this.footer() ).on( 'keyup change', function () {
-//                       if ( that.search() !== this.value ) {
-//                           that
-//                                   .search( this.value )
-//                                   .draw();
-//                       }
-//                   } );
+
                    $( 'input', this.footer() ).on( 'keydown blur', function (ev) {
+
 
                        if (ev.keyCode == 13 ) { //only on enter keypress (code 13)
                            that
-                                   .column(this.parentNode.cellIndex)
+                                   .column(this.parentNode.cellIndex )
                                    .search( this.value )
                                    .draw();
                        }
@@ -165,8 +170,12 @@
                $('.dataTables_length select').select2({width: 80})
                $('.dataTables_filter input').addClass('form-control')
 
-               // add blue bg on header
+
+
+
+             // add blue bg on header
                $('.dataTable thead th').addClass('bg-blue');
+
 
            });
     </script>

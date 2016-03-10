@@ -7,6 +7,19 @@
            {!! Form::text('photo', null , ['class' => 'form-control'])!!}
        </div>
     </div>
+
+    @if(isset($edit))
+
+    <div class="form-group col-lg-4">
+    </div>
+    <div class="form-group col-lg-2 right">
+
+        {!! Form::label('legajo', 'Legajo:') !!}
+        {!! Form::text('id', null, ['class' => 'form-control', 'readonly'=>'readonly']) !!}
+
+    </div>
+    @endif
+
 <!-- Nombre Field -->
 <div class="form-group col-sm-6 col-lg-8">
     {!! Form::label('nombre', 'Nombre y Apellido:') !!}
@@ -15,12 +28,12 @@
 <!-- Fecha Nacimiento Field -->
 <div class="form-group col-sm-6 col-lg-2">
     {!! Form::label('fecha_nacimiento', 'Fecha Nacimiento:') !!}
-    {!! Form::text('fecha_nacimiento', null, ['class' => 'form-control']) !!}
+    {!! Form::input('date','fecha_nacimiento', null, ['class' => 'form-control']) !!}
 </div>
 <!-- Tipo Documento Field -->
 <div class="form-group col-sm-6 col-lg-2">
     {!! Form::label('tipo_documento', 'Tipo Documento:') !!}
-    {!! Form::select('tipo_documento',['TipoDoc','2'], null , ['class' => 'form-control']) !!}
+    {!! Form::select('tipo_documento',$TipoDoc, null , ['class' => 'form-control']) !!}
 </div>
 <!-- Numero Documento Field -->
 <div class="form-group col-sm-6 col-lg-4">
@@ -36,11 +49,11 @@
 <div class="form-group col-sm-6 col-lg-2">
     {!! Form::label('sexo', 'Sexo:') !!}
 
-    {!! Form::select('sexo', ['Masculino','Femenino'] , null , ['class' => 'form-control']) !!}
+    {!! Form::select('sexo', $Sexo , null , ['class' => 'form-control']) !!}
 
 </div>
 <!-- Estado Civil Field -->
 <div class="form-group col-sm-6 col-lg-2    ">
     {!! Form::label('estado_civil', 'Estado Civil:') !!}
-    {!! Form::select('estado_civil', ['estadocivil'] , null , ['class' => 'form-control']) !!}
+    {!! Form::select('estado_civil',$EstadoCivil , null , ['class' => 'form-control']) !!}
 </div>

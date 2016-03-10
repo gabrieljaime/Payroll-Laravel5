@@ -2,7 +2,8 @@
 
 class CaptureTwitterFollowers {
 
-    public function twitter_count($user, $countItem = '') {
+    public function twitter_count($user, $countItem = '')
+    {
 
         /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
         $settings = array(
@@ -16,9 +17,9 @@ class CaptureTwitterFollowers {
         $url = 'https://api.twitter.com/1.1/users/show.json';
         $getfield = '?screen_name=' . $user;
         $requestMethod = 'GET';
-        $twitter = new TwitterAPIExchange( $settings );
-        $follow_count = $twitter->setGetfield( $getfield )->buildOauth( $url, $requestMethod )->performRequest();
-        $get_count = json_decode( $follow_count, true );
+        $twitter = new TwitterAPIExchange($settings);
+        $follow_count = $twitter->setGetfield($getfield)->buildOauth($url, $requestMethod)->performRequest();
+        $get_count = json_decode($follow_count, true);
         $countItem = $countItem != '' ? $countItem : 'followers_count';
 
         return $get_count[$countItem];

@@ -34,9 +34,13 @@
                 </div>
                 <div class="box-body" >
 
-                    <div class="form-group col-sm-2 col-lg-2 clear">
-                        {!! HTML::image(Gravatar::get(Auth::user()->email), Auth::user()->name, array('class' => 'img-circle', 'draggable' => 'false')) !!}
-
+                    <div class="form-group col-sm-2 left">
+                        @if (is_null($employees["photo"])|| $employees["photo"]=="")
+                            {!! HTML::image('storage/legajos/icon-user-default.png' ,'Imagen', array('class' => 'img-circle','width' => '100%')) !!}
+                            </br></br></br>
+                        @else
+                            {!! HTML::image('storage/legajos/' .$employees["photo"] ,'Imagen', array('class' => 'img-circle','width' => '100%', 'style'=>'border: 3px solid; border-color: transparent;border-color: rgba(60, 141, 188, 0.2);')) !!}
+                        @endif
                     </div>
 
                     @include('employees.personal', ['edit' => 'true'])
@@ -79,7 +83,7 @@
             </div>
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">dos Example</h3>
+                    <h3 class="box-title">Datos Complementarios</h3>
                     <div class="box-tools pull-right">
                         {!! Form::button('<i class="fa fa-minus"></i>', array('class' => 'btn btn-box-tool','title' => 'Collapse', 'data-widget' => 'collapse', 'data-toggle' => 'tooltip')) !!}
                      </div>
@@ -117,8 +121,31 @@
 
 @endsection
 @section('template_scripts')
+    <script type="text/javascript">
+        $(document).ready(function(){
+                // select2 style
+                $('select').select2();
 
 
+            var $categoria = $('#categoria');
+            var $subcategoria = $("#subcategoria");
+
+            $categoria.select2().on('change', function() {
+                $.ajax({
+                    url:"{{ URL::to('categories/specialities/') }}/" + $categoria.val(), // if you say $(this) here it will refer to the ajax call not $('.company2')
+                    type:'GET',
+                    success:function(data) {
+                        $subcategoria.empty();
+                        $.each(data, function(value, key) {
+                            $subcategoria.append($("<option></option>").attr("value", value).text(key)); // name refers to the objects value when you do you ->lists('name', 'id') in laravel
+                        });
+                        $subcategoria.select2(); //reload the list and select the first option
+                    }
+                });
+            }).trigger('change');
+
+        });
+    </script>
     @include('admin.structure.dashboard-scripts')
     @include('scripts.address-lookup-g-api')
     @include('scripts.modals')

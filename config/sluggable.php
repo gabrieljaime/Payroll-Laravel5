@@ -18,7 +18,7 @@ return [
      * Defaults to null, which uses the toString() method on your model.
      */
 
-    'build_from' => null,
+    'build_from'      => null,
 
     /**
      * What field to we store the slug in?  Defaults to "slug".
@@ -30,7 +30,7 @@ return [
      * });
      */
 
-    'save_to' => 'slug',
+    'save_to'         => 'slug',
 
     /**
      * The maximum length of a generated slug.  Defaults to "null", which means
@@ -38,7 +38,7 @@ return [
      * want to make sure your slugs aren't too long.
      */
 
-    'max_length' => null,
+    'max_length'      => null,
 
     /**
      * If left to "null", then use the cocur/slugify package to generate the slug
@@ -56,13 +56,13 @@ return [
      *    'method' => array('Str','slug'),
      */
 
-    'method' => null,
+    'method'          => null,
 
     /**
      * Separator to use when generating slugs.  Defaults to a hyphen.
      */
 
-    'separator' => '-',
+    'separator'       => '-',
 
     /**
      * Enforce uniqueness of slugs?  Defaults to true.
@@ -74,7 +74,7 @@ return [
      *     my-slug-2
      */
 
-    'unique' => true,
+    'unique'          => true,
 
     /**
      * Should we include the trashed items when generating a unique slug?
@@ -91,7 +91,7 @@ return [
      * means slugs are not updated.
      */
 
-    'on_update' => false,
+    'on_update'       => false,
 
     /**
      * An array of slug names that can never be used for this model,
@@ -117,6 +117,6 @@ return [
      * and continue from there.
      */
 
-    'reserved' => null,
+    'reserved'        => null,
 
 ];

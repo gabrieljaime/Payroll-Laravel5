@@ -12,7 +12,7 @@ return array(
      |
      */
 
-    'enabled' => true,
+    'enabled'         => true,
 
     /*
      |--------------------------------------------------------------------------
@@ -26,10 +26,10 @@ return array(
      | can also be used. For PDO, run the package migrations first.
      |
      */
-    'storage' => array(
-        'enabled' => true,
-        'driver' => 'file', // redis, file, pdo
-        'path' => storage_path() . '/debugbar', // For file driver
+    'storage'         => array(
+        'enabled'    => true,
+        'driver'     => 'file', // redis, file, pdo
+        'path'       => storage_path() . '/debugbar', // For file driver
         'connection' => null,   // Leave null for default connection (Redis/PDO)
     ),
 
@@ -59,7 +59,7 @@ return array(
      |
      */
 
-    'capture_ajax' => true,
+    'capture_ajax'    => true,
 
     /*
      |--------------------------------------------------------------------------
@@ -70,7 +70,7 @@ return array(
      | Extension, without the server-side code. It uses Debugbar collectors instead.
      |
      */
-    'clockwork' => false,
+    'clockwork'       => false,
 
     /*
      |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return array(
      |
      */
 
-    'collectors' => array(
+    'collectors'      => array(
         'phpinfo'         => true,  // Php version
         'messages'        => true,  // Messages
         'time'            => true,  // Time Datalogger
@@ -113,21 +113,21 @@ return array(
      |
      */
 
-    'options' => array(
-        'auth' => array(
+    'options'         => array(
+        'auth'  => array(
             'show_name' => false,   // Also show the users name/email in the debugbar
         ),
-        'db' => array(
-            'with_params'       => true,   // Render SQL with the parameters substituted
-            'timeline'          => false,  // Add the queries to the timeline
-            'backtrace'         => false,  // EXPERIMENTAL: Use a backtrace to find the origin of the query in your files.
-            'explain' => array(            // EXPERIMENTAL: Show EXPLAIN output on queries
+        'db'    => array(
+            'with_params' => true,   // Render SQL with the parameters substituted
+            'timeline'    => false,  // Add the queries to the timeline
+            'backtrace'   => false,  // EXPERIMENTAL: Use a backtrace to find the origin of the query in your files.
+            'explain'     => array(            // EXPERIMENTAL: Show EXPLAIN output on queries
                 'enabled' => false,
-                'types' => array('SELECT'), // array('SELECT', 'INSERT', 'UPDATE', 'DELETE'); for MySQL 5.6.3+
+                'types'   => array('SELECT'), // array('SELECT', 'INSERT', 'UPDATE', 'DELETE'); for MySQL 5.6.3+
             ),
-            'hints'             => true,    // Show hints for common mistakes
+            'hints'       => true,    // Show hints for common mistakes
         ),
-        'mail' => array(
+        'mail'  => array(
             'full_log' => false
         ),
         'views' => array(
@@ -136,7 +136,7 @@ return array(
         'route' => array(
             'label' => true  // show complete route on bar
         ),
-        'logs' => array(
+        'logs'  => array(
             'file' => null
         ),
     ),
@@ -152,7 +152,7 @@ return array(
      |
      */
 
-    'inject' => true,
+    'inject'          => true,
 
     /*
      |--------------------------------------------------------------------------
@@ -164,6 +164,6 @@ return array(
      | from trying to overcome bugs like this: http://trac.nginx.org/nginx/ticket/97
      |
      */
-    'route_prefix' => '_debugbar',
+    'route_prefix'    => '_debugbar',
 
 );

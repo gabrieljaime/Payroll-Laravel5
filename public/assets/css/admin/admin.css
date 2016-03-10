@@ -7445,11 +7445,12 @@ a:focus {
  * ---------------
  */
 .form-control {
-  border-radius: 0;
+  border-radius: 4px;
   box-shadow: none;
   border-color: #d2d6de;
 }
-.form-control:focus {
+.form-control:focus
+{
   border-color: #3c8dbc;
   box-shadow: none;
 }

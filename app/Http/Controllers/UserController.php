@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
-class UserController extends Controller
-{
+class UserController extends Controller {
 
 //NEW AUTH
 
@@ -19,17 +16,19 @@ class UserController extends Controller
 
     public function index()
     {
-        $user           = \Auth::user();
-        $userRole       = $user->hasRole('user');
-        $editorRole     = $user->hasRole('editor');
-        $adminRole      = $user->hasRole('administrator');
+        $user = \Auth::user();
+        $userRole = $user->hasRole('user');
+        $editorRole = $user->hasRole('editor');
+        $adminRole = $user->hasRole('administrator');
 
-        if($userRole)
+        if ($userRole)
         {
             $access = 'User';
-        } elseif ($editorRole) {
+        } elseif ($editorRole)
+        {
             $access = 'Editor';
-        } elseif ($adminRole) {
+        } elseif ($adminRole)
+        {
             $access = 'Administrator';
         }
 
@@ -44,20 +43,20 @@ class UserController extends Controller
 //OLD LTE
 
     /**
-    * Show the User DASHBOARD Page
-    *
-    * @return View
-    */
+     * Show the User DASHBOARD Page
+     *
+     * @return View
+     */
     public function showUserDashboard()
     {
         return view('admin.layouts.dashboard');
     }
 
     /**
-    * Show the User PROFILE Page
-    *
-    * @return View
-    */
+     * Show the User PROFILE Page
+     *
+     * @return View
+     */
     public function showUserProfile()
     {
         return view('admin.layouts.user-profile');
