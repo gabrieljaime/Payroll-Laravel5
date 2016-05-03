@@ -257,7 +257,7 @@ return [
         'Thumbnail'      => Bootstrapper\Facades\Thumbnail::class,
 
         // ADD BACKEND IMAGE PROCESSING SUPPORT - http://image.intervention.io/getting_started/installation#laravel
-        // 'Image'         => Intervention\Image\Facades\Image::class,
+         'Image'         => Intervention\Image\Facades\Image::class,
 
         // ADD FUNCTIONAL BREADCRUMBS - http://laravel-breadcrumbs.davejamesmiller.com/en/latest/start.html
         'Breadcrumbs'    => DaveJamesMiller\Breadcrumbs\Facade::class,
@@ -269,7 +269,6 @@ return [
 
         'Datatables'     => Yajra\Datatables\Datatables::class, // DataTables
         'PDF2'           => Barryvdh\Snappy\Facades\SnappyPdf::class,
-        'Image'          => Barryvdh\Snappy\Facades\SnappyImage::class,
 
     ],
 

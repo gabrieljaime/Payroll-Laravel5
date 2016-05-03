@@ -90,7 +90,7 @@ class employees extends Model {
         "id"               => "integer",
         "nombre"           => "string",
         "photo"            => "string",
-        "cuil"             => "integer",
+        "cuil"             => "string",
         "categoria"        => "integer",
         "subcategoria"     => "integer",
         "sexo"             => "string",
@@ -144,6 +144,11 @@ class employees extends Model {
     public function scopeActivos($query)
     {
         return $query->where('activo', 1);
+    }
+    public function scopeDelLegajo($query, $legajos)
+    {
+        $legajos= explode(',', $legajos);
+        return $query->whereIn('id', $legajos);
     }
 
     public function setfecha_nacimientoAtribute($date)

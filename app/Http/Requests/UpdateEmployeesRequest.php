@@ -1,8 +1,8 @@
 <?php namespace App\Http\Requests;
 
-use App\Models\employees;
+use App\Models\Employees;
 
-class CreateemployeesRequest extends Request {
+class UpdateEmployeesRequest extends Request {
 
     /**
      * Determine if the user is authorized to make this request.

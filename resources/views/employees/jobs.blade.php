@@ -19,12 +19,12 @@
 <!-- Tipo Contrato Field -->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('tipo_contrato', 'Tipo Contrato:') !!}
-    {!! Form::text('tipo_contrato', null, ['class' => 'form-control']) !!}
+    {!! Form::select('tipo_contrato',$TipoContrato, null, ['class' => 'form-control','data-role'=>'select', 'data-placeholder'=>'Seleccione...']) !!}
 </div>
 <!-- Ubicacion Field -->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('ubicacion', 'Ubicación:') !!}
-    {!! Form::select('ubicacion', $Ubicacion ,null,['class' => 'form-control']) !!}
+    {!! Form::select('ubicacion', $Ubicacion ,null,['class' => 'form-control','data-role'=>'select', 'data-placeholder'=>'Seleccione...']) !!}
 </div>
 <!-- Turno Field -->
 <div class="form-group col-sm-6 col-lg-4">
@@ -38,11 +38,11 @@
 <!-- Basico Field -->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('basico', 'Basico:') !!}
-    {!! Form::text('basico', null, ['class' => 'form-control']) !!}
+    {!! Form::input('number','basico', null, ['class' => 'form-control' ]) !!}
 </div>
 
 <!-- Horas Field -->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('horas', 'Horas:') !!}
-    {!! Form::text('horas', null, ['class' => 'form-control']) !!}
+    {!! Form::text('horas', null, ['class' => 'form-control','data-inputmask'=>'"mask": "99"', 'data-mask' ]) !!}
 </div>

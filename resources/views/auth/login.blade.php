@@ -10,12 +10,17 @@
 @endsection
 
 @section('template_fastload_css')
+	.login-page, .register-page {
+	background-image: url({!!url('storage/logoinicio.png'); !!})  !important;
+	}
 @endsection
 
 @section('content')
     <div class="login-box">
 		<div class="login-logo">
-			<a href="/">Lara<strong>Admin</strong>LTE</a>
+			<a style="margin-left: -23%" href="/"> {!! HTML::image('storage/logolgin.png') !!}
+				</a>
+
 		</div>
 		<div class="login-box-body">
 
@@ -40,11 +45,6 @@
 
 <hr class="login-full-span">
 
-<div class="row btn-block">
-<div class="col-xs-12">
-    {!! HTML::icon_link( "/register", 'fa fa-'.Lang::get('auth.register_icon'), Lang::get('auth.register'), array('title' => Lang::get('auth.register'))) !!}
-</div>
-</div>
 
 <div class="row btn-block">
 <div class="col-xs-12">

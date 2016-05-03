@@ -54,4 +54,10 @@ return [
 	'icon_admin_user_edit' 		=> 'fa-cog',
 	'title_admin_user_edit'		=> 'Edit',
 
+	'link_icon_conceptos' 		=> 'fa-cog',
+	'title_conceptos'		    => 'Concepts',
+
+	'link_icon_conceptos_view' 		=> 'fa-cog',
+	'link_title_conceptos_view'		=> 'Show Concepts',
+
 ];

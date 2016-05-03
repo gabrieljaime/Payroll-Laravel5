@@ -40,4 +40,23 @@
 		$(this).data('form').submit();
 	});
 
+	// CONFIRMATION edit MODAL
+	$('#confirmEdit').on('show.bs.modal', function (e) {
+		var message = $(e.relatedTarget).attr('data-message');
+		var title = $(e.relatedTarget).attr('data-title');
+		var href= $(e.relatedTarget).attr('data-id');
+		var option = $(e.relatedTarget).attr('data-option');
+		var description = $(e.relatedTarget).attr('data-description');
+		$(this).find('.modal-body p').text(message);
+		$(this).find('.modal-title').text(title);
+		$('#description').val(description);
+		$('#type_id').val(option);
+		$('#update').attr('action',href);
+
+
+	});
+	$('#confirmEdit').find('.modal-footer #confirm').on('click', function(){
+		$(this).data('form').submit();
+	});
+
 </script>

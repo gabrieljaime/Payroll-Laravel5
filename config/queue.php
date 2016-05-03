@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'default'     => env('QUEUE_DRIVER', 'sync'),
+    'default'     => env('QUEUE_DRIVER', 'database'),
 
     /*
     |--------------------------------------------------------------------------
@@ -60,9 +60,9 @@ return [
         'iron'       => [
             'driver'  => 'iron',
             'host'    => 'mq-aws-us-east-1.iron.io',
-            'token'   => 'your-token',
-            'project' => 'your-project-id',
-            'queue'   => 'your-queue-name',
+            'token'   => 'y6t8jAOZ2hmfRoKMtJEi',
+            'project' => '56fded0f3ba1df00069b1022',
+            'queue'   => 'app',
             'encrypt' => true,
         ],
 

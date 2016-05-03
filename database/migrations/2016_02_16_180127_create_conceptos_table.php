@@ -39,22 +39,26 @@ class CreateConceptosTable extends Migration {
             $table->softDeletes();
         });
 
-        Schema::create('concepto_specialty', function (Blueprint $table)
+        Schema::create('concepto_categoria', function (Blueprint $table)
         {
+            $table->increments('id');
             $table->integer('concepto_id')->unsigned();
-            $table->integer('specialty_id')->unsigned();
-            $table->integer('basico');
+            $table->integer('categoria_id')->unsigned();
+            $table->integer('cantidad')->nullable();
+            $table->decimal('importe');
+            $table->timestamps();
             $table->foreign('concepto_id')
                 ->references('id')
                 ->on('conceptos')
                 ->onDelete('cascade');
-            $table->foreign('specialty_id')
+            $table->foreign('categoria_id')
                 ->references('id')
-                ->on('specialties')
+                ->on('categories')
                 ->onDelete('cascade');
         });
         Schema::create('conceptofijo', function (Blueprint $table)
         {
+            $table->increments('id');
             $table->integer('concepto_id')->unsigned();
             $table->integer('employees_id')->unsigned();
             $table->integer('importe');
@@ -71,6 +75,7 @@ class CreateConceptosTable extends Migration {
         });
         Schema::create('conceptovariable', function (Blueprint $table)
         {
+            $table->increments('id');
             $table->integer('concepto_id')->unsigned();
             $table->integer('employees_id')->unsigned();
             $table->integer('año');
@@ -96,7 +101,7 @@ class CreateConceptosTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('concepto_specialty');
+        Schema::drop('concepto_categoria');
         Schema::drop('conceptofijo');
         Schema::drop('conceptomes');
         Schema::drop('conceptos');

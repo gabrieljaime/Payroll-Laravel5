@@ -14,6 +14,13 @@
 
 {!! Html::script('assets/plugins/iCheck/icheck.min.js') !!}
 
+{!! Html::script('assets/plugins/iCheck/icheck.min.js') !!}
+
+{!! Html::script('assets/plugins/input-mask/jquery.inputmask.js') !!}
+
+{!! Html::script('assets/plugins/datepicker/bootstrap-datepicker.js') !!}
+
+{!! Html::script('assets/plugins/sweetalert-master/sweetalert-dev.js') !!}
 
 
 

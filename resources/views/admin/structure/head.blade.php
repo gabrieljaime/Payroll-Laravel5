@@ -25,6 +25,15 @@
 
 {!! HTML::style(asset('/assets/plugins/iCheck/all.css'), array('type' => 'text/css', 'rel' => 'stylesheet')) !!}
 
+{!! HTML::style(asset('/assets/plugins/bootstrap-fileinput/fileinput.css'), array('type' => 'text/css', 'rel' => 'stylesheet')) !!}
+
+
+{!! HTML::style(asset('/assets/plugins/sweetalert-master/sweetalert.css'), array('type' => 'text/css', 'rel' => 'stylesheet')) !!}
+
+
+{!! HTML::style(asset('/assets/plugins/datepicker/datepicker3.css'), array('type' => 'text/css', 'rel' => 'stylesheet')) !!}
+
+
 {{-- Load Template Specific CSS --}}
 @yield('style-sheets')
 

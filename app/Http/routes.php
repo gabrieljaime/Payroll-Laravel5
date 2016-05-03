@@ -18,10 +18,29 @@
 */
 
 // HOMEPAGE ROUTE
+
 Route::get('/', function ()
 {
-    return view('welcome');
+    return redirect('/auth/login');
 });
+
+Route::get('/recibo/', function ()
+{
+    $pdf = PDF2::loadView('reports.recibos.recibo')->setPaper('a4', 'landscape')
+        ->setOption('margin-left',15)
+        ->setOption('margin-right',15)
+        ->setOption('margin-bottom', 2)
+        ->setOption('margin-top', 2)
+        ->setOption('grayscale', true);
+
+    return $pdf->stream();
+});
+Route::get('/printRecibo/{legajo}/{anio}/{mes}', 'ReportController@printrecibo');
+Route::get('/printRecibos/{anio}/{mes}', 'ReportController@printrecibos');
+
+Route::get('/downloadRecibo/{legajo}/{anio}/{mes}', 'ReportController@downloadrecibo');
+
+
 
 route::get('/createemployees', function ()
 {
@@ -123,9 +142,31 @@ Route::group(['middleware' => 'auth'], function ()
         'uses' => 'UserController@index'
     ]);
 
+
+//For DataTables data
+    Route::get('empresas/data', 'EmpresaController@data');
+
+    Route::resource('empresas', 'EmpresaController');
+
+    Route::get('empresas/{id}/delete', [
+        'as' => 'empresas.delete',
+        'uses' => 'EmpresaController@destroy',
+    ]);
+
+    Route::match(['get', 'post'],'recibos/', [
+        'as' => 'reports.recibos',
+        'uses' => 'ReciboController@index',
+    ]);
+
+
+
     //Employees Routes
 
-    Route::get('employees/data', 'EmployeesController@data');
+    Route::get('employees/data/{TODOS}', 'EmployeesController@data');
+    Route::patch('employees/cambiar_revista/{id} ', [
+        'as'   => 'employees.cambiar_revista',
+        'uses' => 'EmployeesController@cambiar_revista',
+    ]);
     Route::resource('employees', 'EmployeesController');
 
     Route::get('employees/{id}/delete', [
@@ -167,16 +208,65 @@ Route::group(['middleware' => 'auth'], function ()
     Route::get('categories/specialities/{id}', 'CategoryController@specialities');
     Route::resource('categories', 'CategoryController');
 
+
+    Route::get('conceptos/categorias/dataFijo/{categoria}', 'ConceptoCategoryController@dataFijo');
+    Route::get('conceptos/categorias/data', 'ConceptoCategoryController@data');
+
+    Route::resource('conceptos/categorias', 'ConceptoCategoryController');
+
+    Route::get('conceptos/categories/{id}/delete', [
+        'as'   => 'categories.delete',
+        'uses' => 'CategoryController@destroy',
+    ]);
+
     Route::get('categories/{id}/delete', [
         'as'   => 'categories.delete',
         'uses' => 'CategoryController@destroy',
     ]);
 
-    Route::get('conceptos/asignacion/datafijo', 'AsignacionConceptoController@datafijo');
-    Route::get('conceptos/asignacion/datavariable/{year}/{month}', 'AsignacionConceptoController@datavariable');
+    Route::get('conceptofijo/{id}/delete', [
+        'as'   => 'conceptofijo.delete',
+        'uses' =>  'ConceptoFijoController@destroy',
+    ]);
+    Route::patch('conceptofijo/{concepto}/{empleado}', [
+    'as'   => 'conceptofijo.update',
+    'uses' =>  'ConceptoFijoController@update',
+    ]);
+
+
+    Route::resource('conceptofijo', 'ConceptoFijoController');
+
+    Route::get('conceptovariable/{id}/delete', [
+        'as'   => 'conceptovariable.delete',
+        'uses' => 'ConceptoVariableController@destroy',
+    ]);
+
+    Route::resource('conceptovariable', 'ConceptoVariableController');
+
+    Route::get('conceptos/asignacion/datafijo/{legajos}/{conceptos}', 'ConceptoFijoController@data');
+    Route::get('conceptos/asignacion/datavariable/{month}/{year}/{legajos}/{conceptos}', 'ConceptoVariableController@data');
 
     Route::resource('conceptos/asignacion', 'AsignacionConceptoController');
 
+
+        Route::post('liquidacion/liquidar',
+        [
+            'as'   => 'liquidacion.liquidar',
+            'uses' => 'LiquidacionController@liquidar'
+        ]
+    );
+    Route::resource('liquidacion', 'LiquidacionController');
+
+
+//For DataTables data
+    Route::get('conceptosRevista/data', 'concepto_revistaController@data');
+
+    Route::resource('conceptosRevista', 'concepto_revistaController');
+
+    Route::get('conceptosRevista/{id}/delete', [
+        'as' => 'conceptosRevista.delete',
+        'uses' => 'concepto_revistaController@destroy',
+    ]);
 
 //For DataTables data
     Route::get('conceptos/data', 'ConceptoController@data');
@@ -191,6 +281,8 @@ Route::group(['middleware' => 'auth'], function ()
 
 //For DataTables data
     Route::get('specialties/data', 'SpecialtyController@data');
+
+
 
     Route::resource('specialties', 'SpecialtyController');
 
@@ -309,6 +401,11 @@ Route::get('/', [
     'uses' 			=> 'UsersController@index'
 ]);
 */
+
+
+
+
+
 
 
 

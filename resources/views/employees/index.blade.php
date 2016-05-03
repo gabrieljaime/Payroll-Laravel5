@@ -26,18 +26,27 @@
 
         <div class="box box-primary">
 
-                @include('flash::message')
+
                 @include('admin.modals.confirm-delete-gr')
 
                 <div class="box-header">
                     <div class="pull-right box-tools">
+                        <label class="control-label">
+                            <input type="checkbox" name="todos" id="todos" checked="true" class="minimal">
+                           Solo Activos
+                        </label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="{{route('employees.create')}}" class="btn btn-primary btn-sm iframe">
                             <span class="fa fa-plus-circle"></span> Create New
                         </a>
                         <a href="#" onClick="table.fnReloadAjax()" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i></a>
                     </div>
                     <i class="fa fa-user"></i>
-                    <h3 class="box-title">Employees</h3>
+                    <h3 class="box-title">Employees </h3>
+
+
+
+
 
                 </div>
                 <div class="box-body">
@@ -76,7 +85,7 @@
                    var title = $(this).text();
                    if (title!= " Action")
                    {
-                       $(this).html( '<input type="search" id="search'+title+'" class="form-control" placeholder="Search '+title+'" />' );
+                       $(this).html( '<input type="search" id="search'+title+'" class="form-control" placeholder="Buscar '+title+'" />' );
                    }
                    else
                    {
@@ -94,11 +103,9 @@
                    "scrollX": true,
                        "processing": true,
                  "serverSide": true,
-                   "autoFill": true,
-                    "autoWidth": true,
                     "dom": 'lfrtip<"clear"B>',
                 "ajax": {
-                    "url": '{{ URL::to('employees/data') }}'
+                    "url": '{{ URL::to('employees/data/ACTIVOS') }}'
                 },
                     buttons: {
                         dom: {
@@ -157,6 +164,19 @@
                        }
                    } );
                } );
+
+
+
+               $('input[type="checkbox"].minimal').iCheck({
+                   checkboxClass: 'icheckbox_square-blue',
+                   increaseArea: '20%' // optional
+               });
+               $('#todos').on('ifChecked', function () {
+                   table.ajax.url( '{{ URL::to('employees/data/ACTIVOS') }}/').load();
+               });
+               $('#todos').on('ifUnchecked', function () {
+                   table.ajax.url( '{{ URL::to('employees/data/TODOS') }}/').load();
+               });
            });
 
     </script>
@@ -182,5 +202,7 @@
     @include('admin.structure.dashboard-scripts')
     @include('scripts.address-lookup-g-api')
     @include('scripts.modals')
+
+    @include('admin.modals.flash_message')
 
 @endsection
