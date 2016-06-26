@@ -2,10 +2,12 @@
 <div class="box box-widget widget-user-2">
     <div class="widget-user-header bg-light-blue">
         <div class="widget-user-image">
-            {!! HTML::show_gravatar($user->gravatar,'','img-circle') !!}
+            <img src="/storage/legajos/@if(is_null($user->Empleado->photo)or$user->Empleado->photo=="" )icon-user-default.png @else{{$user->Empleado->photo}} @endif" alt="User Image" class="img-circle">
+
         </div>
-        <h3 class="widget-user-username">{{ $user->first_name }} {{ $user->last_name }}</h3>
-        <h5 class="widget-user-desc">{{ $user->profile->career_title}}</h5>
+        <h3 class="widget-user-username">{{ $user->name }} </h3>
+        <h5 class="widget-user-desc"> 	{{\App\Models\Category::find($user->Empleado->categoria)->category}}    {{\App\Models\Specialty::find($user->Empleado->subcategoria)->specialty}}
+        </h5>
     </div>
 
         @if ($user->profile->twitter_username)

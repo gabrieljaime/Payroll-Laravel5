@@ -20,13 +20,6 @@ return [
 	'create_user_ph_username'		=> 'Nombre de Usuario',
 	'create_user_icon_username'		=> 'fa-user',
 
-	'create_user_label_email'	=> 'Nombre',
-	'create_user_ph_email'		=> 'Nombre',
-	'create_user_icon_email'	=> 'fa-user',
-
-	'create_user_label_email'	=> 'Apellido',
-	'create_user_ph_email'		=> 'Apellido',
-	'create_user_icon_email'	=> 'fa-user',
 
 	'create_user_label_password'	=> 'Contraseña',
 	'create_user_ph_password'		=> 'Contraseña',

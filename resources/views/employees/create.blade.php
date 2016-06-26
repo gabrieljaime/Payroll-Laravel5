@@ -118,12 +118,27 @@
 @section('template_scripts')
     {!! Html::script('assets/plugins/bootstrap-fileinput/fileinput.js') !!}
     {!! Html::script('assets/plugins/bootstrap-fileinput/fileinput_locale_es.js') !!}
+    {!! Html::script('assets/plugins/datepicker/bootstrap-datepicker.js') !!}
+    {!! Html::script('assets/plugins/datepicker/locales/bootstrap-datepicker.es.js') !!}
         <script type="text/javascript">
         $(document).ready(function(){
             $('select').select2();
 
 
             $("[data-mask]").inputmask();
+
+            $('#fecha_nacimiento').datepicker({
+                autoclose: true,
+                language:'es',
+                format:'dd/mm/yyyy'
+            });
+            $('#fecha_ingreso').datepicker({
+                autoclose: true,
+                language:'es',
+                todayBtn: 'linked',
+                todayHighlight:true,
+                format:'dd/mm/yyyy'
+            });
 
             $('select').addClass('form-control');
             var $categoria = $('#categoria');

@@ -38,7 +38,7 @@ Route::get('/recibo/', function ()
 Route::get('/printRecibo/{legajo}/{anio}/{mes}', 'ReportController@printrecibo');
 Route::get('/printRecibos/{anio}/{mes}', 'ReportController@printrecibos');
 
-Route::get('/downloadRecibo/{legajo}/{anio}/{mes}', 'ReportController@downloadrecibo');
+Route::get('/downloadRecibo/{legajo}/{anio}/{mes}/{tipo}', 'ReportController@downloadrecibo');
 
 
 
@@ -48,6 +48,8 @@ route::get('/createemployees', function ()
 
     return $pdf->stream();
 });
+
+
 
 
 Route::get('/twitter', function ()
@@ -158,11 +160,21 @@ Route::group(['middleware' => 'auth'], function ()
         'uses' => 'ReciboController@index',
     ]);
 
+    Route::match(['get', 'post'],'antexp/', [
+        'as' => 'reports.antexp',
+        'uses' => 'ReciboController@antexp',
+    ]);
+
+
+    Route::post('reports/librosueldos/',  'ReportController@librosueldos');
+    Route::get('reports/librosueldos/', 'ReportController@librosueldosindex');
+
 
 
     //Employees Routes
 
     Route::get('employees/data/{TODOS}', 'EmployeesController@data');
+    Route::get('employees/buscar/{LEGAJO}', 'EmployeesController@buscar');
     Route::patch('employees/cambiar_revista/{id} ', [
         'as'   => 'employees.cambiar_revista',
         'uses' => 'EmployeesController@cambiar_revista',
@@ -183,6 +195,46 @@ Route::group(['middleware' => 'auth'], function ()
         'as'   => 'comboOptions.delete',
         'uses' => 'ComboOptionController@destroy',
     ]);
+
+//For DataTables data
+    Route::get('novedades/conceptos/data/{tipos}', 'conceptos_novedadesController@data');
+
+    Route::get('novedades/conceptos/datatipos', 'conceptos_novedadesController@datatipos');
+
+
+    Route::resource('novedades/conceptos', 'conceptos_novedadesController');
+
+    Route::get('novedades/conceptos/{id}/delete', [
+        'as' => 'novedades.conceptos.delete',
+        'uses' => 'conceptos_novedadesController@destroy',
+    ]);
+
+
+
+//For DataTables data
+    Route::get('novedades/tipos/data', 'tipos_novedadesController@data');
+
+    Route::resource('novedades/tipos', 'tipos_novedadesController');
+
+    Route::get('novedades/tipos/{id}/delete', [
+        'as' => 'novedades.tipos.delete',
+        'uses' => 'tipos_novedadesController@destroy',
+    ]);
+
+
+    //For DataTables data
+    Route::get('novedades/data', 'NovedadesController@data');
+
+    Route::resource('novedades', 'NovedadesController');
+
+    Route::get('novedades/{id}/delete', [
+        'as' => 'novedades.delete',
+        'uses' => 'NovedadesController@destroy',
+    ]);
+
+
+
+
 
     // ComboTypes Route
     //For DataTables data
@@ -254,7 +306,19 @@ Route::group(['middleware' => 'auth'], function ()
             'as'   => 'liquidacion.liquidar',
             'uses' => 'LiquidacionController@liquidar'
         ]
+        );
+    Route::post('antexp/liquidar',
+        [
+            'as'   => 'antexp.liquidar',
+            'uses' => 'LiquidacionController@liquidarantexp'
+        ]
     );
+    Route::match(['get', 'post'],'Liquidacionantexp', [
+        'as' => 'liquidacion.antexp',
+        'uses' => 'LiquidacionController@indexantexp',
+    ]);
+
+
     Route::resource('liquidacion', 'LiquidacionController');
 
 
@@ -400,15 +464,3 @@ Route::get('/', [
     'as' 			=> 'user',
     'uses' 			=> 'UsersController@index'
 ]);
-*/
-
-
-
-
-
-
-
-
-
-
-

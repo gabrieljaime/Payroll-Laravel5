@@ -6,6 +6,7 @@
 {!! Html::script('assets/DataTables/fnReloadAjax.js') !!}
 
 {!! Html::script('assets/js/select2/select2.min.js') !!}
+{!! Html::script('assets/js/select2/i18n/es.js') !!}
 
 <!-- SlimScroll -->
 {!! Html::script('assets/plugins/slimScroll/jquery.slimscroll.min.js') !!}
@@ -15,6 +16,8 @@
 {!! Html::script('assets/plugins/iCheck/icheck.min.js') !!}
 
 {!! Html::script('assets/plugins/iCheck/icheck.min.js') !!}
+
+{!! Html::script('assets/plugins/chartjs/Chart.min.js') !!}
 
 {!! Html::script('assets/plugins/input-mask/jquery.inputmask.js') !!}
 

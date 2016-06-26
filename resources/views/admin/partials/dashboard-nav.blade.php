@@ -23,10 +23,15 @@
         <ul class="dropdown-menu">
           <!-- User image -->
           <li class="user-header bg-light-blue">
-            {!! HTML::image(Gravatar::get(Auth::user()->email), Auth::user()->name, array('class' => 'img-circle', 'draggable' => 'false')) !!}
+           <img src="/storage/legajos/@if(is_null(Auth::user()->Empleado->photo)or Auth::user()->Empleado->photo=="" )icon-user-default.png @else{{Auth::user()->Empleado->photo}} @endif" alt="User Image" class="profile-user-img img-responsive img-circle">
+
+
             <p>
-              {{ (Auth::user()->name === Auth::user()->email) ? ((is_null(Auth::user()->first_name)) ? (Auth::user()->name) : (Auth::user()->first_name)) : (((is_null(Auth::user()->name)) ? (Auth::user()->email) : (Auth::user()->name))) }} - {{ Auth::user()->profile->career_title }}
-              <small>Member since {{ date("M. Y", strtotime(Auth::user()->created_at)) }}</small>
+              {{ (Auth::user()->name === Auth::user()->email) ? ((is_null(Auth::user()->first_name)) ? (Auth::user()->name) : (Auth::user()->first_name)) : (((is_null(Auth::user()->name)) ? (Auth::user()->email) : (Auth::user()->name))) }}
+
+              <small>{{\App\Models\Category::find(Auth::user()->Empleado->categoria)->category}}    {{\App\Models\Specialty::find(Auth::user()->Empleado->subcategoria)->specialty}} </small>
+               <small>Usuario desde  {{Lang::get('meses.'.Auth::user()->created_at->format('F')).' '.Auth::user()->created_at->format('Y')}}
+               </small>
             </p>
           </li>
           <!-- Menu Body -->
@@ -44,18 +49,18 @@
           <!-- Menu Footer-->
           <li class="user-footer">
             <div class="pull-left">
-              <a href="/profile/{{Auth::user()->name}}" class="btn btn-default btn-flat">Profile</a>
+              <a href="/employees/{{Auth::user()->employees_id}}/edit" class="btn btn-default">Editar Legajo</a>
             </div>
             <div class="pull-right">
-              <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+              <a href="/logout" class="btn btn-default "> <span class="fa fa-sign-out text-red"></span>Salir</a>
             </div>
           </li>
         </ul>
       </li>
       <!-- Control Sidebar Toggle Button -->
-      <li>
-        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-      </li>
+      {{--<li>--}}
+        {{--<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>--}}
+      {{--</li>--}}
     </ul>
   </div>
 </nav>

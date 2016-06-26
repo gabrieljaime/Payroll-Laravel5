@@ -23,7 +23,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name', 'first_name', 'last_name', 'email', 'password'];
+    protected $fillable = ['employee_id','name', 'email', 'password'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -35,26 +35,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     // REGISTRATION VALIDATION RULES
     public static $rules = [
         'name'                  => 'required',
-        'first_name'            => 'required',
-        'last_name'             => 'required',
         'email'                 => 'required|email|unique:users',
         'password'              => 'required|min:6|max:20',
-        'password_confirmation' => 'required|same:password',
-        'g-recaptcha-response'  => 'required'
+        'password_confirmation' => 'required|same:password'
     ];
 
-    // REGISTRATION ERROR MESSAGES
-    public static $messages = [
-        'name.required'                 => 'Username is required',
-        'first_name.required'           => 'First Name is required',
-        'last_name.required'            => 'Last Name is required',
-        'email.required'                => 'Email is required',
-        'email.email'                   => 'Email is invalid',
-        'password.required'             => 'Password is required',
-        'password.min'                  => 'Password needs to have at least 6 characters',
-        'password.max'                  => 'Password maximum length is 20 characters',
-        'g-recaptcha-response.required' => 'Captcha is required'
-    ];
 
     // ACCOUNT EMAIL ACTIVATION
     public function accountIsActive($code)
@@ -82,11 +67,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return true;
     }
 
+    //Empleado
+    public function Empleado()
+    {
+
+        return $this->belongsTo('App\Models\Employees', 'employees_id');
+    }
     // USER ROLES
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role')->withTimestamps();
     }
+
 
     public function hasRole($name)
     {

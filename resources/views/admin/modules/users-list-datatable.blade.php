@@ -1,11 +1,11 @@
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">
-            {{$total_users}} Registered
+            {{$total_users}} Registrados
 			@if ($total_users > 2)
-				Users
+				Usuarios
 			@else
-				User
+				Usuario
 			@endif
         </h3>
 
@@ -19,18 +19,20 @@
 		<table id="user_table" class="table table-striped table-hover table-condensed">
 			<thead>
 				<tr class="success">
-					<th>Gravatar</th>
+					<th>Imagen</th>
 					<th>ID</th>
-					<th>Name</th>
+					<th>Nombre</th>
 					<th>Email</th>
-					<th>Created</th>
-					<th>Updated</th>
+					<th>Creado</th>
+					<th>Actualizado</th>
 				</tr>
 			</thead>
 			<tbody>
 		        @foreach ($users as $a_user)
 					<tr>
-						<td>{!! HTML::image(Gravatar::get($a_user->email), $a_user->name, array('class' => 'profile-user-img img-responsive img-circle', 'draggable' => 'false')) !!}</td>
+						<td>
+							<img src="/storage/legajos/@if(is_null($a_user->Empleado->photo)or$a_user->Empleado->photo=="" )icon-user-default.png @else{{$a_user->Empleado->photo}} @endif" alt="User Image" draggable="false" class="profile-user-img img-responsive img-circle">
+						</td>
 						<td>{{$a_user->id}} </td>
 						<td>{{$a_user->name}} </td>
 						<td>{{$a_user->email}} </td>

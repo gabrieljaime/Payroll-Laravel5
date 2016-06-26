@@ -7,6 +7,7 @@ use App\Models\ConceptoCategory;
 use App\Models\ConceptoFijo;
 use App\Models\Employees;
 use App\Models\Familiar;
+use App\Models\Specialty;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\EstadosRevista;
@@ -72,22 +73,36 @@ class employeesController extends AppBaseController {
             ->with('employees', $employees);
     }
 
+    public function buscar($legajo)
+    {
+
+        return    $Employees = Employees::DelLegajo($legajo)->get();
+    }
 
 public function data($todos)
     {
        if ($todos=='ACTIVOS')
        {
-           $Employees = Employees::Activos()->select(array('employees.id', 'employees.nombre', 'employees.cuil', 'employees.fecha_ingreso', 'employees.categoria', 'employees.subcategoria', 'employees.tipo_documento', 'employees.numero_documento', 'employees.basico', 'employees.activo', 'employees.estado',));
+           $Employees = Employees::Activos()->get(array('id', 'nombre', 'cuil', 'fecha_ingreso', 'categoria', 'subcategoria', 'tipo_documento', 'numero_documento', 'basico', 'activo', 'estado'));
        }
         else
         {
-            $Employees = Employees::select(array('employees.id', 'employees.nombre', 'employees.cuil', 'employees.fecha_ingreso', 'employees.categoria', 'employees.subcategoria', 'employees.tipo_documento', 'employees.numero_documento', 'employees.basico', 'employees.activo', 'employees.estado',));
+            if ($todos=='TODOS')
+            {
+                $Employees = Employees::get(array('id', 'nombre', 'cuil', 'fecha_ingreso', 'categoria', 'subcategoria', 'tipo_documento', 'numero_documento', 'basico', 'activo', 'estado'));
 
+            }
+            else
+            {
+                $Employees = Employees::DelLegajo($todos)->get(array('id', 'nombre', 'cuil', 'fecha_ingreso', 'categoria', 'subcategoria', 'tipo_documento', 'numero_documento', 'basico', 'activo', 'estado'));
+            }
         }
+
+
         return Datatables::of($Employees)
-            ->edit_column('categoria', '{{ App\Models\Category::findOrFail($categoria)->category }}')
-                ->edit_column('subcategoria', '{{ App\Models\Specialty::findOrFail($subcategoria)->specialty  }}')
-            ->edit_column('tipo_documento', '{{ \App\Models\comboOption::findOrFail($tipo_documento)->description  }}')
+            ->edit_column('categoria', '{{ \App\Models\Category::find($categoria)->category }}')
+                ->edit_column('subcategoria', '{{\App\Models\Specialty::find($subcategoria)->specialty  }}')
+            ->edit_column('tipo_documento', '{{ \App\Models\comboOption::find($tipo_documento)->description  }}')
             ->edit_column('activo',  function ($Employee) { if ($Employee->activo==true) return "<span class='label label-success'>ACTIVO</span>" ;
                                                             else return "<span class='label label-danger'>BAJA</span>"  ;
             })
@@ -106,9 +121,7 @@ public function data($todos)
      */
     public function create()
     {
-        /*$ubicaciones  = \App\Models\Ubicaciones::lists('descripcion','id');
-         $estados_revista  = \App\Models\estado_revista::lists('descripcion','id');
-        */
+
         $TipoDoc =  \App\Models\comboType::join('comboOptions', 'comboTypes.id', '=', 'comboOptions.type_id')
                                         ->where('comboTypes.type','Tipo Documento')
                                         ->lists('comboOptions.description','comboOptions.id')->prepend('', '');
@@ -117,6 +130,9 @@ public function data($todos)
             ->lists('comboOptions.description','comboOptions.id')->prepend('', '');
         $EstadoCivil =  \App\Models\comboType::join('comboOptions', 'comboTypes.id', '=', 'comboOptions.type_id')
             ->where('comboTypes.type','Estado Civil')
+            ->lists('comboOptions.description','comboOptions.id')->prepend('', '');
+        $turno =  \App\Models\comboType::join('comboOptions', 'comboTypes.id', '=', 'comboOptions.type_id')
+            ->where('comboTypes.type','Turno')
             ->lists('comboOptions.description','comboOptions.id')->prepend('', '');
         $TipoContrato =  \App\Models\comboType::join('comboOptions', 'comboTypes.id', '=', 'comboOptions.type_id')
             ->where('comboTypes.type','Tipo Contrato')
@@ -127,7 +143,7 @@ public function data($todos)
         $Localidades =  \App\Models\comboType::join('comboOptions', 'comboTypes.id', '=', 'comboOptions.type_id')
             ->where('comboTypes.type','Localidades')
             ->lists('comboOptions.description','comboOptions.id')->prepend('', '');
-        $ObraSocial = \App\Models\obraSocial::selectRaw('CONCAT(codigo, "-", nombre) as nombre, codigo')->lists('nombre', 'codigo')->prepend('', '');
+        $ObraSocial = \App\Models\obraSocial::selectRaw('CONCAT(codigo, "-", nombre) as nombre, id')->lists('nombre', 'id')->prepend('', '');
 
         $Category = \App\Models\Category::lists('category', 'id')->prepend('', '');
         $Specialty = \App\Models\Specialty::lists('specialty', 'id')->prepend('', '');
@@ -143,7 +159,7 @@ public function data($todos)
         $especialidad  = \App\Models\Especialidades::lists('especialidad','id');
         $obrasocial  = \App\Models\ObrasSociales::lists('nombre','codigo');*/
 
-        return view('employees/create', compact('TipoDoc', 'Sexo', 'EstadoCivil', 'Ubicacion', 'TipoContrato', 'ObraSocial', 'Category', 'Specialty','conceptos_revista','employees','edit', 'Localidades'));
+        return view('employees/create', compact('TipoDoc', 'Sexo','turno', 'EstadoCivil', 'Ubicacion', 'TipoContrato', 'ObraSocial', 'Category', 'Specialty','conceptos_revista','employees','edit', 'Localidades'));
         /*		->with('ubicaciones', $ubicaciones)
                 ->with('estados_revista', $estados_revista)
                 ->with('categoria', $categoria)
@@ -170,6 +186,8 @@ public function data($todos)
             $input["photo"]  = $this->guardar_foto( $request->file('photoup'));
         }
 
+        $input["fecha_nacimiento"]=Carbon::createFromFormat('d/m/Y',$input["fecha_nacimiento"]);
+        $input["fecha_ingreso"]=Carbon::createFromFormat('d/m/Y',$input["fecha_ingreso"]);
 
         $employees = $this->employeesRepository->create($input);
 
@@ -245,7 +263,10 @@ public function data($todos)
         $Localidades =  \App\Models\comboType::join('comboOptions', 'comboTypes.id', '=', 'comboOptions.type_id')
             ->where('comboTypes.type','Localidades')
             ->lists('comboOptions.description','comboOptions.id')->prepend('', '');
-        $ObraSocial = \App\Models\obraSocial::selectRaw('CONCAT(codigo, "-", nombre) as nombre, codigo')->lists('nombre', 'codigo')->prepend('', '');
+        $turno =  \App\Models\comboType::join('comboOptions', 'comboTypes.id', '=', 'comboOptions.type_id')
+            ->where('comboTypes.type','Turno')
+            ->lists('comboOptions.description','comboOptions.id')->prepend('', '');
+        $ObraSocial = \App\Models\obraSocial::selectRaw('CONCAT(codigo, "-", nombre) as nombre, id')->lists('nombre', 'id')->prepend('', '');
         $Category = \App\Models\Category::lists('category', 'id')->prepend('', '');
         $Specialty = \App\Models\Specialty::where('category', '=', $employees->categoria)->get()->lists('specialty', 'id')->prepend('', '');
         $conceptos_revista = \App\Models\concepto_revista::where('id','!=',$employees->estado)->lists('descripcion','id')->prepend('', '');
@@ -253,8 +274,6 @@ public function data($todos)
         $situacion_revista= \App\Models\EstadosRevista::with('Situacion')->DelLegajoVigente($id)->first();
         $conyugue=\App\Models\Familiar::ConyugueDe($id)->first();
         $hijos=\App\Models\Familiar::HijosDe($id)->get();
-
-
 
         //$estados_revista  = \App\Models\estado_revista::lists('descripcion','id');
         //$categoria  = \App\Models\Categorias::lists('categoria','id');
@@ -266,7 +285,7 @@ public function data($todos)
             return redirect(route('employees.index'));
         }
 
-        return view('employees.edit', compact('employees', 'TipoDoc', 'Sexo', 'EstadoCivil', 'Ubicacion', 'TipoContrato', 'ObraSocial', 'Category', 'Specialty','conceptos_revista','estado_revista','situacion_revista', 'conyugue', 'hijos', 'Localidades'));
+        return view('employees.edit', compact('employees', 'TipoDoc','turno', 'Sexo', 'EstadoCivil', 'Ubicacion', 'TipoContrato', 'ObraSocial', 'Category', 'Specialty','conceptos_revista','estado_revista','situacion_revista', 'conyugue', 'hijos', 'Localidades'));
         //->with('estados_revista', $estados_revista)
         //->with('categoria', $categoria)
         //->with('especialidad', $especialidad)
@@ -302,7 +321,8 @@ public function data($todos)
 
             $input["photo"]  = $this->guardar_foto( $request->file('photoup'));
         }
-
+        $input["fecha_nacimiento"]=Carbon::createFromFormat('d/m/Y',$input["fecha_nacimiento"]);
+        $input["fecha_ingreso"]=Carbon::createFromFormat('d/m/Y',$input["fecha_ingreso"]);
         $this->employeesRepository->updateRich($input, $id);
 
         $this->guardar_familiares($input, $id);

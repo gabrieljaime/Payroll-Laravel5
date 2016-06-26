@@ -5,6 +5,7 @@ use App\Logic\User\CaptureIp;
 use App\Logic\User\UserRepository;
 use App\Models\Profile;
 use App\Models\User;
+use App\Models\Employees;
 use Gravatar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades;
@@ -44,7 +45,7 @@ class UsersManagementController extends Controller {
     {
 
         $user = \Auth::user();
-        $users = \DB::table('users')->get();
+        $users = User::with('Empleado')->get();
 
         $total_users = \DB::table('users')->count();
 
@@ -95,7 +96,7 @@ class UsersManagementController extends Controller {
     {
 
         $user = \Auth::user();
-        $users = \DB::table('users')->get();
+        $users = User::with('Empleado')->get();
         $total_users = \DB::table('users')->count();
         $userRole = $user->hasRole('user');
         $editorRole = $user->hasRole('editor');
@@ -103,13 +104,13 @@ class UsersManagementController extends Controller {
 
         if ($userRole)
         {
-            $access = 'User';
+            $access = 'Empleado';
         } elseif ($editorRole)
         {
-            $access = 'Editor';
+            $access = 'Recursos Humanos';
         } elseif ($adminRole)
         {
-            $access = 'Administrator';
+            $access = 'Administrador';
         }
 
 
@@ -133,12 +134,7 @@ class UsersManagementController extends Controller {
     {
         return Validator::make($data, [
             'name'             => 'required|max:255',
-            'email'            => 'required|email|max:255',
-            'location'         => '',
-            'bio'              => '',
-            'twitter_username' => '',
-            'career_title'     => '',
-            'education'        => ''
+            'email'            => 'required|email|max:255'
         ]);
     }
 
@@ -153,15 +149,8 @@ class UsersManagementController extends Controller {
         return Validator::make($data, [
             'name'             => 'required|max:255|unique:users',
             'email'            => 'required|email|max:255|unique:users',
-            'first_name'       => 'required|max:255',
-            'last_name'        => 'required|max:255',
             'password'         => 'required|confirmed|min:6',
-            'user_level'       => 'required|numeric|min:1',
-            'location'         => '',
-            'bio'              => '',
-            'twitter_username' => '',
-            'career_title'     => '',
-            'education'        => ''
+            'user_level'       => 'required|numeric|min:1'
         ]);
     }
 
@@ -198,7 +187,7 @@ class UsersManagementController extends Controller {
                 'access' => $access,
                 //'totaltwitterFollowers'     => $totaltwitterFollowers,
             ]
-        )->with('status', 'Successfully updated user!');
+        )->with('status', 'Usuario actualizado exitosamente!');
 
     }
 
@@ -238,7 +227,7 @@ class UsersManagementController extends Controller {
             $user->assignRole($input);
             $user->save();
 
-            return redirect('users/' . $user->id . '/edit')->with('status', 'Successfully updated the user!');
+            return redirect('users/' . $user->id . '/edit')->with('status', 'Usuario actualizado exitosamente!');
 
         }
     }
@@ -250,7 +239,9 @@ class UsersManagementController extends Controller {
      */
     public function create()
     {
-        return view('admin.pages.create-user');
+        $Legajos = Employees::Activos()->where('email','<>','')->selectRaw('CONCAT(id, "-", nombre) as empleado, id')->lists('empleado', 'id')->prepend('', '');
+
+        return view('admin.pages.create-user', compact('Legajos'));
     }
 
     /**
@@ -274,15 +265,14 @@ class UsersManagementController extends Controller {
 
             $activation_code = str_random(60) . $request->input('email');
             $user = new User;
+            $user->employees_id= $request->input('empleado');
             $user->email = $request->input('email');
             $user->name = $request->input('name');
-            $user->first_name = $request->input('first_name');
-            $user->last_name = $request->input('last_name');
             $userAccessLevel = $request->input('user_level');
             $user->password = bcrypt($request->input('password'));
 
-            // GET GRAVATAR
-            $user->gravatar = Gravatar::get($request->input('email'));
+            //// GET GRAVATAR
+            //$user->gravatar = Gravatar::get($request->input('email'));
 
             // GET ACTIVATION CODE
             $user->activation_code = $activation_code;
@@ -295,8 +285,8 @@ class UsersManagementController extends Controller {
             // SAVE THE USER
             $user->save();
 
-            // GET GRAVATAR
-            $user->gravatar = Gravatar::get($user->email);
+            //// GET GRAVATAR
+            //$user->gravatar = Gravatar::get($user->email);
 
             // ADD ROLE
             $user->assignRole($userAccessLevel);
@@ -316,7 +306,7 @@ class UsersManagementController extends Controller {
             $user->profile()->save($profile);
 
             // THE SUCCESSFUL RETURN
-            return redirect('edit-users')->with('status', 'Successfully created user!');
+            return redirect('edit-users')->with('status', 'Usuario creado exitosamente!');
 
         }
 
@@ -331,7 +321,7 @@ class UsersManagementController extends Controller {
     public function show($id)
     {
         // GET USER
-        $user = User::find($id);
+        $user = User::with('Empleado')->find($id);
 
         return view('admin.pages.show-user')->withUser($user);
     }
@@ -348,7 +338,7 @@ class UsersManagementController extends Controller {
         $user = User::find($id);
         $user->delete();
 
-        return redirect('edit-users')->with('status', 'Successfully deleted the user!');
+        return redirect('edit-users')->with('status', 'Usuario eliminado exitosamente!');
     }
 
 }

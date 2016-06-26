@@ -3,18 +3,18 @@
 <!-- Retencion Field -->
 <div class="form-group col-lg-2">
     {!! Form::label('retencion', 'Sujeto a Retenciones:') !!}
-    {!! Form::select('retencion', [''=>'','SI','NO'],null, ['class' => 'form-control'])  !!}
+    {!! Form::select('retencion', [''=>'','S'=>'SI','N'=>'NO'],null, ['class' => 'form-control'])  !!}
 </div>
 
 <!-- Familia Field -->
 <div class="form-group col-lg-2">
     {!! Form::label('familia', 'Sujeto a reten familiares:') !!}
-    {!! Form::select('familia',  [''=>'','SI','NO'],null,  ['class' => 'form-control']) !!}
+    {!! Form::select('familia',  [''=>'','S'=>'SI','N'=>'NO'],null,  ['class' => 'form-control']) !!}
 </div>
 <!-- Retencion1 Field -->
 <div class="form-group col-lg-2">
     {!! Form::label('reintegro', 'Es Reintegro:') !!}
-    {!! Form::select('reintegro',[''=>'','SI','NO'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('reintegro',[''=>'','S'=>'SI','N'=>'NO'], null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Haberdebe Field -->

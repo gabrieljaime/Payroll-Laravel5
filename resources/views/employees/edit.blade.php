@@ -27,7 +27,7 @@
         <section class="content-header">
 
             <h1>
-                Edit Employees
+                Editar Empleado Legajo {{ $employees->id}}
             </h1>
 
             {!! Breadcrumbs::render('create_employees') !!}
@@ -130,6 +130,8 @@
             <!-- /.box -->
 
             {!! Form::close() !!}
+                </div>
+
         </section>
 
         @include('employees.update_revista')
@@ -144,6 +146,8 @@
 @section('template_scripts')
     {!! Html::script('assets/plugins/bootstrap-fileinput/fileinput.js') !!}
     {!! Html::script('assets/plugins/bootstrap-fileinput/fileinput_locale_es.js') !!}
+    {!! Html::script('assets/plugins/datepicker/bootstrap-datepicker.js') !!}
+    {!! Html::script('assets/plugins/datepicker/locales/bootstrap-datepicker.es.js') !!}
     <script type="text/javascript">
         $(document).ready(function(){
                 // select2 style
@@ -151,7 +155,19 @@
 
             $("[data-mask]").inputmask();
 
-
+            //Date picker
+            $('#fecha_nacimiento').datepicker({
+                autoclose: true,
+                language:'es',
+                format:'dd/mm/yyyy'
+            });
+            $('#fecha_ingreso').datepicker({
+                autoclose: true,
+                language:'es',
+                todayBtn: 'linked',
+                todayHighlight:true,
+                format:'dd/mm/yyyy'
+            });
 
 
 // with plugin options
@@ -171,7 +187,7 @@
                         $subcategoria.select2(); //reload the list and select the first option
                     }
                 });
-            }).trigger('change');
+            });
 
 
             $('#confirmCambiarRevista').on('show.bs.modal', function (e) {

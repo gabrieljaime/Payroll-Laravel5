@@ -1,7 +1,7 @@
 <div class="box box-success">
     <div class="box-header with-border">
         <h3 class="box-title">
-            Users Snapshots
+			Datos de Usuarios
         </h3>
         <div class="box-tools pull-right">
             {!! Form::button('<i class="fa fa-minus"></i>', array('class' => 'btn btn-box-tool','title' => 'Collapse', 'data-widget' => 'collapse', 'data-toggle' => 'tooltip')) !!}
@@ -32,7 +32,7 @@
 							{{$total_users_confirmed}}
 						</h3>
 						<p>
-							<strong>Confirmed</strong>
+							<strong>Confirmados</strong>
 						</p>
 					</div>
 					<div class="icon">
@@ -47,7 +47,7 @@
 							{{$total_users_locked}}
 						</h3>
 						<p>
-							<strong>Locked</strong>
+							<strong>Bloqueados</strong>
 						</p>
 					</div>
 					<div class="icon">
@@ -62,7 +62,7 @@
 							{{$total_users_new}}
 						</h3>
 						<p>
-							<strong>New</strong>
+							<strong>Nuevos</strong>
 						</p>
 					</div>
 					<div class="icon">

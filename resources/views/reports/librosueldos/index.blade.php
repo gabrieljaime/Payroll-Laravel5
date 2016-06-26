@@ -1,7 +1,7 @@
 @extends('admin.layouts.dashboard')
 
 @section('template_title')
-   Ver Recibos Mensual
+    Libro de Sueldos
 @endsection
 
 @section('template_fastload_css')
@@ -137,7 +137,7 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                Recibos
+                Libro de Sueldos
                 <small> </small>
             </h1>
 
@@ -154,27 +154,8 @@
 
             <div class="col-sm-4">
                 <div class="box box-primary container-fluid" >
-                    {!! Form::open(['action' => 'ReciboController@index','enctype' => 'multipart/form-data']  ) !!}
-                    {!! csrf_field() !!}
+                    {!! Form::open(['action' => 'ReportController@librosueldos','enctype' => 'multipart/form-data']  ) !!}
 
-                    <div class="box-header">
-
-                        <i class="fa fa-user"></i>
-
-                        <h3 class="box-title">Empleados a consultar</h3>
-
-                    </div>
-                    <div class="box-body">
-                        <div class="form-group form-inline">
-                            {!! Form::label('legajo', 'Legajos:', ['class'=>'control-label ']) !!}
-                            @if ($esconsulta)
-                            {!! Form::select('legajo', $Legajos, $recibo->empleado->id , ['class' => 'form-control', 'required'])!!}
-                            @else
-                                {!! Form::select('legajo', $Legajos, 0 , ['class' => 'form-control', 'required'])!!}
-                            @endif
-                        </div>
-
-                    </div>
 
                     <div class="box-header">
 
@@ -191,8 +172,8 @@
                                @include('liquidacion.selectmeses')
                             </div>
                             <div class="col-md-4">
-                                {!! Form::label('anio', 'Año:',['class'=>'control-label']) !!}
-                                {!! Form::selectYear('año', $año-5 , $año+5, $año, ['class' => 'form-control','id'=>'anio'])!!}
+                                {!! Form::label('año', 'Año:',['class'=>'control-label']) !!}
+                                {!! Form::selectYear('año', $año-5 , $año+5, $año, ['class' => 'form-control','id'=>'año'])!!}
                             </div>
 
                         </div>
@@ -227,12 +208,7 @@
 
             <!-- /.box -->
 
-           @include('reports.recibos.modelorecibo', ['copia' => 'ORIGINAL'] )
 
-            <div class="col-sm-2" @if (!$esconsulta) hidden="true" @endif >
-                <a class="btn btn-primary btn-block" id="imprimir" > <i class="fa fa-print"> </i> Imprimir </a>
-                <a class="btn btn-success btn-block" id="descargar" > <i class="fa fa-download "> </i> Descargar </a>
-            </div>
         </section>
 
     </div>
@@ -240,39 +216,6 @@
 @endsection
 
 @section('template_scripts')
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            // select2 style
-            $('#legajo').select2({
-                placeholder: "Seleccione"
-            });
-
-            $('#imprimir').click(function() {
-
-                document.location.href ='{{ URL::to('printRecibo/'.$recibo->empleado->id.'/'.$año.'/'.$mes)}}'
-
-
-
-
-            });
-
-            $('#descargar').click(function() {
-
-                document.location.href ='{{ URL::to('downloadRecibo/'.$recibo->empleado->id.'/'.$año.'/'.$mes)}}'
-
-
-
-
-            });
-
-
-            //iCheck for checkbox and radio inputs
-
-        });
-    </script>
-
-
 
     @include('admin.structure.dashboard-scripts')
     @include('scripts.address-lookup-g-api')

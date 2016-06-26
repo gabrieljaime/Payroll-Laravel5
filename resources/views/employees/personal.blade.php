@@ -40,7 +40,7 @@
 <!-- Numero Documento Field -->
 
 
-                <div class="form-group col-sm-4">
+<div class="form-group col-sm-4">
 
     {!! Form::label('numero_documento', 'Numero Documento:') !!}
     {!! Form::text('numero_documento', null, ['class' => 'form-control', 'data-inputmask'=>'"mask": "99.999.999"', 'data-mask' ]) !!}
@@ -52,11 +52,14 @@
     {!! Form::label('cuil', 'Cuil:') !!}
     {!! Form::text('cuil', null, ['class' => 'form-control','data-inputmask'=>'"mask": "99-99.999.999-9"', 'data-mask']) !!}
 </div>
-
                                                             <!-- Fecha Nacimiento Field -->
-                                        <div class="form-group col-sm-2">
+                                        <div class="form-group col-sm-2" >
                                             {!! Form::label('fecha_nacimiento', 'Fecha Nacimiento:') !!}
-                                            {!! Form::input('date','fecha_nacimiento', null, ['class' => 'form-control']) !!}
+                                            @if ($edit)
+                                            {!! Form::text('fecha_nacimiento', $employees->fecha_nacimiento->format('d/m/Y'), ['class' => 'form-control', 'placeholder'=>'DD/MM/AAAA']) !!}
+                                                @else
+                                                {!! Form::text('fecha_nacimiento', null, ['class' => 'form-control','placeholder'=>'DD/MM/AAAA']) !!}
+                                            @endif
                                         </div>
 <div class="form-group col-sm-6 col-lg-2">
     {!! Form::label('sexo', 'Sexo:') !!}

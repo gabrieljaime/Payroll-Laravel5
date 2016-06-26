@@ -11,7 +11,7 @@
 	 <div class="content-wrapper">
 	    <section class="content-header">
 
-			<h1>Showing {{ $user->name }}</h1>
+			<h1>Mostrando {{ $user->name }}</h1>
 
             {!! Breadcrumbs::render('show_user_admin_view', $user) !!}
 
@@ -19,9 +19,11 @@
 	    <section class="content">
 
 			<ul>
-				<li>
-					<a href="{{ URL::to('users/create') }}">Create a User</a>
-				</li>
+
+					<a href="{{ URL::to('users/create') }}" class="btn btn-primary btn-sm iframe">
+						<span class="fa fa-plus-circle"></span> Crear un nuevo usuario
+					</a>
+
 			</ul>
 
 			    	{{--
@@ -34,7 +36,6 @@
 					--}}
 
 			<div class="jumbotron text-center">
-				<h2>{{ $user->name }}</h2>
 				<p>
 					<strong>Email:</strong> {{ $user->email }}<br>
 				</p>

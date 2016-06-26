@@ -1,7 +1,7 @@
 @extends('admin.layouts.dashboard')
 
 @section('template_title')
-   Generacion de Liquidacion Mensual
+   Generacion de Liquidacion Mensual de conceptos especiales
 @endsection
 
 @section('template_fastload_css')
@@ -32,7 +32,7 @@
 
             <div class="col-md-6 col-md-offset-3">
                 <div class="box box-primary container-fluid">
-                    {!! Form::open(['action' => 'LiquidacionController@liquidar','enctype' => 'multipart/form-data'] ) !!}
+                    {!! Form::open(['action' => 'LiquidacionController@liquidarantexp','enctype' => 'multipart/form-data'] ) !!}
                     {!! csrf_field() !!}
 
                     <div class="box-header">

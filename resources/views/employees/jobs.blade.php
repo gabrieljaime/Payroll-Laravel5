@@ -1,7 +1,11 @@
 <!-- Fecha Ingreso Field -->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('fecha_ingreso', 'Fecha Ingreso:') !!}
-    {!! Form::input('date','fecha_ingreso', null, ['class' => 'form-control']) !!}
+    @if ($edit)
+        {!! Form::text('fecha_ingreso', $employees->fecha_ingreso->format('d/m/Y'), ['class' => 'form-control','placeholder'=>'DD/MM/AAAA']) !!}
+    @else
+        {!! Form::text('fecha_ingreso', null, ['class' => 'form-control','placeholder'=>'DD/MM/AAAA']) !!}
+    @endif
 </div>
 
 <!-- Categoria Field -->
@@ -29,7 +33,7 @@
 <!-- Turno Field -->
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('turno', 'Turno:') !!}
-    {!! Form::select('turno',['Mañana','Tarde','Noche'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('turno',$turno, null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group col-sm-6 col-lg-4">
     {!! Form::label('es_jerarquico', 'Es Jerarquico:') !!}

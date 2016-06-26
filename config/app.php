@@ -163,6 +163,7 @@ return [
         Gabo\Generator\GeneratorServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,                           // Datatables
         Barryvdh\Snappy\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -269,6 +270,8 @@ return [
 
         'Datatables'     => Yajra\Datatables\Datatables::class, // DataTables
         'PDF2'           => Barryvdh\Snappy\Facades\SnappyPdf::class,
+
+        'Excel'          => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

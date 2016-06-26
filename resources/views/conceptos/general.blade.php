@@ -12,10 +12,10 @@
 <!-- Esfijo Field -->
 <div class="form-group col-lg-2">
     {!! Form::label('esfijo', 'Es fijo:') !!}
-    {!! Form::select('esfijo',[''=>'','SI','NO'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('esfijo',[''=>'','S'=>'SI','N'=>'NO'], null, ['class' => 'form-control']) !!}
 </div>
 <!-- Basico Field -->
 <div class="form-group col-lg-2">
     {!! Form::label('basico', 'Basico:') !!}
-    {!! Form::select('basico',[''=>'','SI','NO'], null, ['class' => 'form-control']) !!}
+    {!! Form::select('basico',[''=>'','S'=>'SI','N'=>'NO'], null, ['class' => 'form-control']) !!}
 </div>

@@ -85,9 +85,9 @@
                             <div class="box-body">
                                 <div class="form-inline">
                                     <div class="col-md-6">
+
                                         {!! Form::label('mes', 'Mes:', ['class'=>'control-label']) !!}
-                                        {!! Form::selectMonth('mes', $mes, ['class' => 'form-control' ,
-                                        'placeholder'=>'Enter password'])!!}
+                                        @include('liquidacion.selectmeses')
                                     </div>
                                     <div class="col-md-6">
                                         {!! Form::label('anio', 'Año:',['class'=>'control-label']) !!}

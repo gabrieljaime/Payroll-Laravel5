@@ -14,7 +14,7 @@
 
   </head>
 
-  <body class="{{ isset($layoutBodybodyClasses) ? $layoutBodybodyClasses : '' }} {{ isset($templateBodybodyClasses) ? $templateBodybodyClasses : '' }}">
+  <body class="{{ isset($layoutBodybodyClasses) ? $layoutBodybodyClasses : '' }} {{ isset($templateBodybodyClasses) ? $templateBodybodyClasses : '' }}" lang="es">
 
     {{-- Load Google Analytics --}}
     {{-- @include('blog.partials.analytics') --}}

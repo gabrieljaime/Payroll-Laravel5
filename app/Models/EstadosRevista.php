@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -26,6 +27,12 @@ class EstadosRevista extends Model
     {
         $legajos= explode(',', $legajos);
         return $query->whereIn('employees_id', $legajos);
+    }
+    public function scopeBajasDelMes($query,$año, $mes )
+    {
+        $primerdia= Carbon::createFromDate($año, $mes, 1);
+        $ultimodia=$primerdia->lastOfMonth();
+        return $query->whereBetween('fecha_inicio', [$primerdia, $ultimodia])->where('situacion','99');
     }
 
     public function scopeDelLegajoVigente($query, $legajos)

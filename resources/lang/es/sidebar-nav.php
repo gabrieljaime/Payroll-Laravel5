@@ -110,6 +110,8 @@ return [
 
 	'link_icon_liquidacion_view' 		=> 'fa-filter',
 	'link_title_liquidacion_view'		    => 'Generar Liquidación',
+	'link_icon_recibos_view' 		=> 'fa-file-text',
+	'link_title_recibos_view'		    => 'Ver Recibos',
 
 
 ];

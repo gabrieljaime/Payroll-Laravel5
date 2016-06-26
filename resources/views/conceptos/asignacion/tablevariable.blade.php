@@ -6,8 +6,9 @@
                  <th width="23%">Detalle</th>
                  <th width="7%">Legajo</th>
                  <th width="23%">Nombre</th>
-                 <th width="15%">Importe</th>
                  <th width="15%">Cantidad</th>
+                 <th width="15%">Importe</th>
+
              </tr>
         </thead>
 

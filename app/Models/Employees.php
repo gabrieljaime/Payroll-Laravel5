@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model as Model;
 
 class employees extends Model {
 
+    protected $dates = ['fecha_ingreso', 'fecha_nacimiento'];
+
     public static $rules = [
         /**
          * "nombre" => "required",
@@ -96,7 +98,6 @@ class employees extends Model {
         "sexo"             => "string",
         "tipo_documento"   => "string",
         "numero_documento" => "string",
-        "fecha_nacimiento" => "string",
         "matricula"        => "string",
         "direccion"        => "string",
         "localidad"        => "string",
@@ -147,7 +148,11 @@ class employees extends Model {
     }
     public function scopeDelLegajo($query, $legajos)
     {
-        $legajos= explode(',', $legajos);
+        if (is_string($legajos))
+        {
+            $legajos= explode(',', $legajos);
+        }
+
         return $query->whereIn('id', $legajos);
     }
 
@@ -161,6 +166,7 @@ class employees extends Model {
     {
 
         $this->attributes['fecha_ingreso'] = Carbon::parse($date);
+
     }
 
 

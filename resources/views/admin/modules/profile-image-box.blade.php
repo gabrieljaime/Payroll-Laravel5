@@ -2,14 +2,15 @@
 <div class="box box-primary">
     <div class="box-body box-profile">
 
-        {!! HTML::show_gravatar($user->gravatar,'','profile-user-img img-responsive img-circle') !!}
+        <img src="/storage/legajos/@if(is_null($user->Empleado->photo)or$user->Empleado->photo=="" )icon-user-default.png @else{{$user->Empleado->photo}} @endif" alt="User Image" class="profile-user-img img-responsive img-circle">
+
 
         <h3 class="profile-username text-center">
-        	{{ $user->first_name }} {{ $user->last_name }}
+        	{{ $user->name }}
         </h3>
 
         <p class="text-muted text-center">
-        	{{ $user->profile->career_title}}
+        	{{\App\Models\Category::find($user->Empleado->categoria)->category}}    {{\App\Models\Specialty::find($user->Empleado->subcategoria)->specialty}}
         </p>
 
     </div>

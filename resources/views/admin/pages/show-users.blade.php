@@ -1,7 +1,7 @@
 @extends('admin.layouts.dashboard')
 
 @section('template_title')
-	Welcome {{ $user->name }}
+	Bienvenido {{ $user->name }}
 @endsection
 
 @section('template_fastload_css')
@@ -12,7 +12,7 @@
 	    <section class="content-header">
 
 			<h1>
-				Show Users <small> {{ Lang::get('pages.dashboard-access-level',['access' => $access] ) }} </small>
+				Ver Usuarios <small> {{ Lang::get('pages.dashboard-access-level',['access' => $access] ) }} </small>
 			</h1>
 
 			{!! Breadcrumbs::render('users') !!}

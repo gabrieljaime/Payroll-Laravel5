@@ -7,7 +7,10 @@
         {{--  GRAVATAR AND USE STATUS PANEL --}}
         <div class="user-panel">
             <div class="pull-left image">
-              {!! HTML::show_gravatar()!!}
+                <img src="/storage/legajos/@if(is_null(Auth::user()->Empleado->photo)or Auth::user()->Empleado->photo=="" )icon-user-default.png @else{{Auth::user()->Empleado->photo}} @endif" alt="User Image" class="profile-user-img img-responsive img-circle">
+
+
+
             </div>
             <div class="pull-left info">
                 <p>
@@ -44,7 +47,9 @@
                         <li {{ (Request::is('conceptos/create' ) ? ' class=active' : '')}} >
                             {!! HTML::icon_link( "/employees/create", 'fa '.Lang::get('sidebar-nav.link_icon_employees_create'), Lang::get('sidebar-nav.link_title_employees_create'), array('title' => Lang::get('sidebar-nav.link_title_employees_create'))) !!}
                         </li>
-
+                        <li {{ (Request::is('recibos' ) ? ' class=active' : '')}} >
+                            {!! HTML::icon_link( "/recibos", 'fa '.Lang::get('sidebar-nav.link_icon_recibos_view'), Lang::get('sidebar-nav.link_title_recibos_view'), array('title' => Lang::get('sidebar-nav.link_title_recibos_view'))) !!}
+                        </li>
                         <li >
                             {!! HTML::icon_link( "/conceptos/asignacion", 'fa '.Lang::get('sidebar-nav.link_icon_conceptos_asignacion'), Lang::get('sidebar-nav.link_title_conceptos_asignacion'), array('title' => Lang::get('sidebar-nav.link_title_conceptos_asignacion'))) !!}
                         </li>
@@ -136,21 +141,21 @@
                 </li>
             @endif
 
-            @if (Auth::user()->profile)
-                <li class="treeview {{ (Request::is('profile/*' ) ? ' active' : '') }} " >
-                    {!! HTML::icon_link( "/profile/".Auth::user()->name, 'fa '.Lang::get('sidebar-nav.link_icon_profile_top'), "<span>".Lang::get('sidebar-nav.link_title_profile_top')."</span><i class='fa ".Lang::get('sidebar-nav.caret_folded')." pull-right'></i>", array('title' => Lang::get('sidebar-nav.link_title_profile_top'))) !!}
-                    <ul class="treeview-menu" >
-                        <li {{ (Request::is('profile/'.Auth::user()->name ) ? ' class=active' : '')}}>
-                            {!! HTML::icon_link( "/profile/".Auth::user()->name, 'fa '.Lang::get('sidebar-nav.link_icon_profile_view'), Lang::get('sidebar-nav.link_title_profile_view'), array('title' => Lang::get('sidebar-nav.link_title_profile_view'))) !!}
-                        </li>
-                        @if (Auth::user()->id == Auth::user()->id)
-                            <li {{ (Request::is('profile/'.Auth::user()->name.'/edit' ) ? ' class=active' : '')}}>
-                                {!! HTML::icon_link( "/profile/".Auth::user()->name."/edit", 'fa '.Lang::get('sidebar-nav.link_icon_profile_edit'), Lang::get('sidebar-nav.link_title_profile_edit'), array('title' => Lang::get('sidebar-nav.link_title_profile_edit'))) !!}
-                            </li>
-                        @endif
-                    </ul>
-                </li>
-            @endif
+            {{--@if (Auth::user()->profile)--}}
+                {{--<li class="treeview {{ (Request::is('profile/*' ) ? ' active' : '') }} " >--}}
+                    {{--{!! HTML::icon_link( "/profile/".Auth::user()->name, 'fa '.Lang::get('sidebar-nav.link_icon_profile_top'), "<span>".Lang::get('sidebar-nav.link_title_profile_top')."</span><i class='fa ".Lang::get('sidebar-nav.caret_folded')." pull-right'></i>", array('title' => Lang::get('sidebar-nav.link_title_profile_top'))) !!}--}}
+                    {{--<ul class="treeview-menu" >--}}
+                        {{--<li {{ (Request::is('profile/'.Auth::user()->name ) ? ' class=active' : '')}}>--}}
+                            {{--{!! HTML::icon_link( "/profile/".Auth::user()->name, 'fa '.Lang::get('sidebar-nav.link_icon_profile_view'), Lang::get('sidebar-nav.link_title_profile_view'), array('title' => Lang::get('sidebar-nav.link_title_profile_view'))) !!}--}}
+                        {{--</li>--}}
+                        {{--@if (Auth::user()->id == Auth::user()->id)--}}
+                            {{--<li {{ (Request::is('profile/'.Auth::user()->name.'/edit' ) ? ' class=active' : '')}}>--}}
+                                {{--{!! HTML::icon_link( "/profile/".Auth::user()->name."/edit", 'fa '.Lang::get('sidebar-nav.link_icon_profile_edit'), Lang::get('sidebar-nav.link_title_profile_edit'), array('title' => Lang::get('sidebar-nav.link_title_profile_edit'))) !!}--}}
+                            {{--</li>--}}
+                        {{--@endif--}}
+                    {{--</ul>--}}
+                {{--</li>--}}
+            {{--@endif--}}
 
 
 

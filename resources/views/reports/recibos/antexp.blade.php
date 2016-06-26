@@ -154,7 +154,7 @@
 
             <div class="col-sm-4">
                 <div class="box box-primary container-fluid" >
-                    {!! Form::open(['action' => 'ReciboController@index','enctype' => 'multipart/form-data']  ) !!}
+                    {!! Form::open(['action' => 'ReciboController@antexp','enctype' => 'multipart/form-data']  ) !!}
                     {!! csrf_field() !!}
 
                     <div class="box-header">
