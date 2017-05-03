@@ -2,6 +2,6 @@
 
 return [
     'dripIntervalInMilliSeconds' => 300000,
-    'domain' => url('/'),
+    'domain' => 'http://rrhh.cmlc.com.ar/',
     'route' => 'genealabs/laravel-caffeine/drip',
 ];

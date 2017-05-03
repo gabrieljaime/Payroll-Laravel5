@@ -1,7 +1,7 @@
 @extends('admin.layouts.dashboard')
 
 @section('template_title')
-   Listado de Recibos
+   Listado de Cuotas Solidarias
 @endsection
 
 @section('template_fastload_css')
@@ -137,7 +137,7 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                Listados de Recibos
+                Listado Cuota Solidaria
                 <small> </small>
             </h1>
 
@@ -154,7 +154,7 @@
 
             <div class="col-md-8">
                 <div class="box box-primary container-fluid" >
-                    {!! Form::open(['action' => 'ReportController@listadorecibos','enctype' => 'multipart/form-data']  ) !!}
+                    {!! Form::open(['action' => 'ReportController@listadocuotasolidaria','enctype' => 'multipart/form-data']  ) !!}
 
 
                     <div class="box-header">
@@ -173,14 +173,8 @@
                             </div>
                             <div class="col-md-4">
                                 {!! Form::label('año', 'Año:',['class'=>'control-label']) !!}
-                                {!! Form::selectYear('año', $año-5 , $año+5, $año, ['class' => 'form-control','id'=>'año'])!!}
+                                {!! Form::selectYear('año', 2003 , $año+5, $año, ['class' => 'form-control','id'=>'año'])!!}
                             </div>
-
-
-                             <div class="col-md-4">
-                                     {!! Form::label('tipo', 'Tipo:',['class'=>'control-label']) !!}
-                                     {!! Form::select('tipo', ['Normal'=>'Normal','antexp'=>'Especiales','indep'=>'Independiente'] , null, ['class' => 'form-control','id'=>'tipo'])!!}
-                                 </div>
 
 
                         </div>
@@ -192,7 +186,7 @@
 
                         <i class="fa fa-cogs"></i>
 
-                        <h3 class="box-title">Consultar Recibos </h3>
+                        <h3 class="box-title">Generar Reporte </h3>
 
                     </div>
                     <div class="box-body">
