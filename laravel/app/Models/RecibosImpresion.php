@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\File\File;
 class RecibosImpresion extends Model
 {
 
-    use HistoryLog;
+    //use HistoryLog;
 
     public $table = "recibos_impresion";
 

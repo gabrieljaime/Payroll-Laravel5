@@ -48,7 +48,9 @@ class ResumenReloj extends Model
     public function scopeConHoras($query)
     {
 
-        return $query->where('dias_descuentos','>', 0)->orWhere('horas_descuentos','>', 0)->orWhere('horas_extras','>', 0)->orWhere('feriados_trabajados','>', 0);
+        return $query->Where(function ($query) {
+                $query->orwhere('dias_descuentos','>', 0)->orWhere('horas_descuentos','>', 0)->orWhere('horas_extras','>', 0)->orWhere('feriados_trabajados','>', 0);
+            });
     }
     public function scopeDelLegajo($query, $legajo)
     {

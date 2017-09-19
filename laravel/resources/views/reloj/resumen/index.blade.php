@@ -94,7 +94,7 @@
                            <div class="form-inline">
                                <div style="padding-top: 20px;">
 
-                                   {!! Form::button('Cargar',['class' => 'btn btn-primary', 'id'=>'confirmar'])!!}
+                                   {!! Form::button('Cargar a Novedades',['class' => 'btn btn-primary', 'id'=>'confirmar'])!!}
 
 
                                </div>

@@ -64,6 +64,8 @@ class Resumen_RelojController extends AppBaseController
     	{
 
 
+
+
 			$resumen = ResumenReloj::DelPeriodo($mes,$año)->get(array('id', 'legajo', 'dias_trabajados', 'dias_descuentos', 'horas_descuentos', 'horas_extras', 'feriados_trabajados','mes','año'));
 
 
